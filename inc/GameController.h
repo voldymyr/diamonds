@@ -14,6 +14,16 @@
 
 namespace Controller
 {
+	class GameController
+	{
+	public:
+		GameController();
+		~GameController();
+		void GameLoop(void);
+
+	private:
+		GraphicsEngine *gEngine;
+	};
 }
 
 
