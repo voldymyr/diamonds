@@ -13,6 +13,8 @@
 #include <vector>
 #include <map>
 
+using namespace std;
+
 /* Types of elements on the game board */
 enum ElementType {Yellow, Green, Blue, Purple, Red, None};
 

@@ -10,6 +10,7 @@
 
 #include "../inc/GameBoard.h"
 #include "../inc/GameView.h"
+#include "../inc/GameWindowModel.h"
 
 namespace Controller
 {
