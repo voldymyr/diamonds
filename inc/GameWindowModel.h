@@ -16,9 +16,10 @@ namespace Model
 	class GameWindowModel
 	{
 	public:
-		GameWindowModel();
-		~GameWindowModel();
-		void SetMainWindow();
+		GameWindowModel(void);
+		~GameWindowModel(void);
+		void SetMainWindow(SDL_Surface **window);
+		SDL_Surface* GetMainWIndow(void);
 
 	protected:
 		SDL_Surface *mainWindow;

@@ -14,5 +14,14 @@ Model::GameWindowModel::GameWindowModel()
 
 Model::GameWindowModel::~GameWindowModel()
 {
-	SDL_FreeSurface(mainWindow);
+}
+
+void Model::GameWindowModel::SetMainWindow(SDL_Surface **window)
+{
+	mainWindow = *window;
+}
+
+SDL_Surface* Model::GameWindowModel::GetMainWIndow()
+{
+	return mainWindow;
 }
