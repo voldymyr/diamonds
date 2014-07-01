@@ -10,7 +10,10 @@
 
 namespace Controller
 {
+	class GameWindowController
+	{
 
+	};
 }
 
 
