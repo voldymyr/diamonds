@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include "../inc/Common.h"
-#include "../inc/GameEngine.h"
+#include "../inc/engine/GameEngine.h"
 
 
 int main(int argc, char** argv)
