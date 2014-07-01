@@ -8,7 +8,7 @@
 #ifndef EVENTCONTROLLER_H_
 #define EVENTCONTROLLER_H_
 
-#include "../inc/GraphicsEngine.h"
+#include "../inc/GameEngine.h"
 
 namespace Controller
 {

@@ -7,14 +7,19 @@
 
 #include "../inc/GameEngine.h"
 
-Controller::GameEngine::GameEngine()
+GameEngine::GameEngine()
 {
-	graphicsEngine = new GraphicsEngine;
-	if(graphicsEngine == NULL)
-		cout << "Could not create Graphics Instance" << endl;
+	if(SDL_Init(SDL_INIT_VIDEO) < 0)
+		cout << "Error in SDL_Init(): " << SDL_GetError() << endl;
+	if(IMG_Init(IMG_INIT_JPG) < 0)
+		cout << "Error in IMG_Init(): " << IMG_GetError() << endl;
+	if(TTF_Init() < 0)
+		cout << "Error in TTF_Init(): " << TTF_GetError() << endl;
 }
 
-Controller::GameEngine::~GameEngine()
+GameEngine::~GameEngine()
 {
-	delete graphicsEngine;
+	TTF_Quit();
+	IMG_Quit();
+	SDL_Quit();
 }

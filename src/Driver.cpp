@@ -9,12 +9,11 @@
 #include <cstdio>
 #include "../inc/Common.h"
 #include "../inc/GameEngine.h"
-#include "../inc/GameWindowController.h"
 
 
 int main(int argc, char** argv)
 {
-	Controller::GameEngine gameEngine;
+	GameEngine gameEngine;
 
 	printf("Hello World!");
 	return 0;

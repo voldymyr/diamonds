@@ -11,7 +11,7 @@
 #ifndef GAMEWINDOWMODEL_H_
 #define GAMEWINDOWMODEL_H_
 
-#include "../inc/GraphicsEngine.h"
+#include "../inc/GameEngine.h"
 #include "../inc/Common.h"
 
 namespace Model

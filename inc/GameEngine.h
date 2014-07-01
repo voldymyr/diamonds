@@ -16,24 +16,19 @@
 #ifndef GAMEENGINE_H_
 #define GAMEENGINE_H_
 
-#include "../inc/GraphicsEngine.h"
-#include "../inc/LogicsController.h"
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_mixer.h>
+#include <SDL/SDL_ttf.h>
+
+#include "../inc/Common.h"
 #include "../inc/EventController.h"
 
-namespace Controller
+class GameEngine
 {
-	class GameEngine
-	{
-	public:
-		GameEngine();
-		~GameEngine();
-
-	private:
-		GraphicsEngine *graphicsEngine;
-		//Controller::LogicsController *logicsController;
-		//Controller::EventController *eventController;
-	};
-}
-
+public:
+	GameEngine();
+	~GameEngine();
+};
 
 #endif /* GAMEENGINE_H_ */
