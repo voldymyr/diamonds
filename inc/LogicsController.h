@@ -9,7 +9,7 @@
 #define LOGICSCONTROLLER_H_
 
 #include "../inc/GameBoard.h"
-#include "../inc/GameView.h"
+#include "../inc/GameWindowView.h"
 #include "../inc/GameWindowModel.h"
 
 namespace Controller

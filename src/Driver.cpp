@@ -8,13 +8,13 @@
 #include <cstdlib>
 #include <cstdio>
 #include "../inc/Common.h"
-#include "../inc/GameController.h"
+#include "../inc/GameEngine.h"
+#include "../inc/GameWindowController.h"
+
 
 int main(int argc, char** argv)
 {
-	Controller::GameController gameCtrl;
-
-	//gameCtrl.GameLoop();
+	Controller::GameEngine gameEngine;
 
 	printf("Hello World!");
 	return 0;

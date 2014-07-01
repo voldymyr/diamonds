@@ -21,6 +21,10 @@ namespace Model
 	public:
 		GameWindowModel(void);
 		~GameWindowModel(void);
+		void SetWindowWidth(int width);
+		int GetWindowWidth(void);
+		void SetWindowHeight(int height);
+		int GetWindowHeight(void);
 		void SetMainWindow(SDL_Surface **window);
 		SDL_Surface* GetMainWIndow(void);
 		void SetBackGroundIMG(SDL_Surface **img);
@@ -37,6 +41,8 @@ namespace Model
 		SDL_Rect GetGameOverRect(void);
 
 	protected:
+		int windowWidth;
+		int windowHeight;
 		SDL_Surface* mainWindow;
 		SDL_Surface* backGroundIMG;
 		SDL_Rect backGroundRect;

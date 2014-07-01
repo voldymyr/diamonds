@@ -9,17 +9,47 @@
 
 Model::GameWindowModel::GameWindowModel()
 {
+	windowWidth = 0;
+	windowHeight = 0;
 	mainWindow = NULL;
 	backGroundIMG = NULL;
-	backGroundRect = {0, 0, 0, 0};
+	backGroundRect.h = 0;
+	backGroundRect.w = 0;
+	backGroundRect.x = 0;
+	backGroundRect.y = 0;
 	textFont = NULL;
-	textColor = {0, 0, 0};
+	textColor.b = 0;
+	textColor.g = 0;
+	textColor.r = 0;
 	gameOverStr = NULL;
-	gameOverRect = {0, 0, 0, 0};
+	gameOverRect.h = 0;
+	gameOverRect.w = 0;
+	gameOverRect.x = 0;
+	gameOverRect.y = 0;
 }
 
 Model::GameWindowModel::~GameWindowModel()
 {
+}
+
+void Model::GameWindowModel::SetWindowWidth(int width)
+{
+	windowWidth = width;
+}
+
+int Model::GameWindowModel::GetWindowWidth()
+{
+	return windowWidth;
+}
+
+void Model::GameWindowModel::SetWindowHeight(int height)
+{
+	windowHeight = height;
+}
+
+int Model::GameWindowModel::GetWindowHeight()
+{
+	return windowHeight;
 }
 
 void Model::GameWindowModel::SetMainWindow(SDL_Surface **window)
@@ -64,7 +94,7 @@ TTF_Font* Model::GameWindowModel::GetTextFont()
 
 void Model::GameWindowModel::SetTextColor(SDL_Color *color)
 {
-	textColor = color;
+	textColor = *color;
 }
 
 SDL_Color Model::GameWindowModel::GetTextColor()
