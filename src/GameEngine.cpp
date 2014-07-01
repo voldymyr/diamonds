@@ -1,5 +1,5 @@
 /*
- * GameController.cpp
+ * GameEngine.cpp
  *
  *  Created on: Jun 30, 2014
  *      Author: khrystynka
