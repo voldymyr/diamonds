@@ -18,17 +18,13 @@ View::GameWindowView::~GameWindowView()
 
 }
 
-void View::GameWindowView::UpdateWindow(SDL_Surface **window)
+void View::GameWindowView::UpdateWindow(SDL_Surface*& window)
 {
-	SDL_Flip(*window);
+	SDL_Flip(window);
 }
 
-void View::GameWindowView::DrawImage(SDL_Surface **img, SDL_Surface **window, int x, int y)
+void View::GameWindowView::DrawImage(SDL_Surface*& img, SDL_Surface*& window)
 {
-	SDL_Rect tmpRect;
-	tmpRect.x = x;
-	tmpRect.y = y;
-
-	SDL_BlitSurface(*img, NULL, *window, &tmpRect);
+	SDL_BlitSurface(img, NULL, window, NULL);
 }
 

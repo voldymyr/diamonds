@@ -17,8 +17,8 @@ namespace View
 	public:
 		GameWindowView();
 		~GameWindowView();
-		void UpdateWindow(SDL_Surface **window);
-		void DrawImage(SDL_Surface **img, SDL_Surface **window, int x, int y);
+		void UpdateWindow(SDL_Surface*& window);
+		void DrawImage(SDL_Surface*& img, SDL_Surface*& window);
 	};
 }
 

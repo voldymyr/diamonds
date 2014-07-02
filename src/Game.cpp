@@ -36,14 +36,10 @@ void Game::MainGameLoop()
 	SDL_Event event;
 
 
-	//gameWindowController->DispatchSetMainWindow(755, 600, 32, SDL_SWSURFACE);
-	//gameWindowController->DispatchSetMainWindowCaption("Diamonds", "Diamonds");
-	//gameWindowController->DispatchSetBackgroundImage("BackGround.jpg");
-	//gameWindowController->DispatchDrawBackgroundImage();
-	SDL_Surface* screen = SDL_SetVideoMode(755, 600, 32, SDL_SWSURFACE);
-	SDL_WM_SetCaption("Diamonds", "Diamonds");
-	SDL_Surface* image = IMG_Load("rc/BackGround.jpg");
-	SDL_BlitSurface(image, NULL, screen, NULL);
+	gameWindowController->DispatchSetMainWindow(755, 600, 32, SDL_SWSURFACE);
+	gameWindowController->DispatchSetMainWindowCaption("Diamonds", "Diamonds");
+	gameWindowController->DispatchSetBackgroundImage("rc/BackGround.jpg");
+	gameWindowController->DispatchDrawBackgroundImage();
 
 	while(!bQuit)
 	{
@@ -53,9 +49,8 @@ void Game::MainGameLoop()
 				bQuit = true;
 		}
 
-		SDL_Flip(screen);
 		//gameWindowController->DispatchDrawBackgroundImage();
-		//gameWindowController->DispatchUpdateWindow();
+		gameWindowController->DispatchUpdateWindow();
 
 	}
 }
