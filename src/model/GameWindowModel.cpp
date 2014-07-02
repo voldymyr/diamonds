@@ -30,6 +30,10 @@ Model::GameWindowModel::GameWindowModel()
 
 Model::GameWindowModel::~GameWindowModel()
 {
+	SDL_FreeSurface(mainWindow);
+	SDL_FreeSurface(backGroundIMG);
+	TTF_CloseFont(textFont);
+	SDL_FreeSurface(gameOverStr);
 }
 
 void Model::GameWindowModel::SetWindowWidth(int width)
@@ -52,9 +56,19 @@ int Model::GameWindowModel::GetWindowHeight()
 	return windowHeight;
 }
 
-void Model::GameWindowModel::SetMainWindow(SDL_Surface **window)
+void Model::GameWindowModel::SetMainWindow(int x, int y, int bpp, Uint32 flags)
 {
-	mainWindow = *window;
+	if(mainWindow)
+	{
+		SDL_FreeSurface(mainWindow);
+		mainWindow = NULL;
+	}
+
+	windowWidth = x;
+	windowHeight = y;
+	mainWindow = SDL_SetVideoMode(x, y, bpp, flags);
+	if(!mainWindow)
+		cout << "Could not set main window: " << SDL_GetError() << endl;
 }
 
 SDL_Surface* Model::GameWindowModel::GetMainWIndow()
@@ -62,9 +76,22 @@ SDL_Surface* Model::GameWindowModel::GetMainWIndow()
 	return mainWindow;
 }
 
-void Model::GameWindowModel::SetBackGroundIMG(SDL_Surface **img)
+void Model::GameWindowModel::SetMainWindowCaption(const char* title, const char* icon)
 {
-	backGroundIMG = *img;
+	SDL_WM_SetCaption(title, icon);
+}
+
+void Model::GameWindowModel::SetBackGroundIMG(const char* img)
+{
+	if(backGroundIMG)
+	{
+		SDL_FreeSurface(backGroundIMG);
+		backGroundIMG = NULL;
+	}
+
+	backGroundIMG = IMG_Load(img);
+	if(!backGroundIMG)
+		cout << "Could not load Background IMG: " << SDL_GetError() << endl;
 }
 
 SDL_Surface* Model::GameWindowModel::GetBackGroundIMG()

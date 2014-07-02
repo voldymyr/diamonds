@@ -8,12 +8,16 @@
 #include <cstdlib>
 #include <cstdio>
 #include "../inc/Common.h"
-#include "../inc/engine/GameEngine.h"
+#include "../inc/Game.h"
 
 
 int main(int argc, char** argv)
 {
-	GameEngine gameEngine;
+	Game* theGame = new Game;
+	if(!theGame)
+		cout << "Could not create Game!" << endl;
+
+	theGame->MainGameLoop();
 
 	printf("Hello World!");
 	return 0;

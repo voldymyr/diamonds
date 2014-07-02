@@ -1,4 +1,4 @@
-/*
+/**
  * GameWindowController.h
  *
  *  Created on: Jul 1, 2014
@@ -18,8 +18,11 @@ namespace Controller
 	public:
 		GameWindowController();
 		~GameWindowController();
-		void LoadBackgroundImage(const char *img);
-		void DrawBackgroundImage();
+		void DispatchSetBackgroundImage(const char *img);
+		void DispatchDrawBackgroundImage();
+		void DispatchUpdateWindow();
+		void DispatchSetMainWindow(int x, int y, int bpp, Uint32 flags);
+		void DispatchSetMainWindowCaption(const char* title, const char* icon);
 
 	private:
 		Model::GameWindowModel *gameWindowModel;

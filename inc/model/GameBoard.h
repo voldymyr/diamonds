@@ -8,7 +8,7 @@
 #ifndef GAMEBOARD_H_
 #define GAMEBOARD_H_
 
-#include "../inc/Common.h"
+#include "../Common.h"
 #include <map>
 #include <vector>
 

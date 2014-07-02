@@ -21,12 +21,33 @@ Controller::GameWindowController::~GameWindowController()
 	delete gameWindowView;
 }
 
-void Controller::GameWindowController::LoadBackgroundImage(const char *img)
+void Controller::GameWindowController::DispatchSetBackgroundImage(const char *img)
 {
-	SDL_Surface* background = IMG_Load(img);
-	if(!background)
-		cout << "Could not load Background IMG: " << SDL_GetError() << endl;
+	gameWindowModel->SetBackGroundIMG(img);
+}
 
-	gameWindowModel->SetBackGroundIMG(&background);
-	//gameWindowView->DrawBackground(&gameWindowModel->GetBackGroundIMG(), &gameWindowModel->GetMainWIndow(), gameWindowModel->GetWindowWidth(), gameWindowModel->GetWindowHeight());
+void Controller::GameWindowController::DispatchDrawBackgroundImage()
+{
+	SDL_Surface* background = gameWindowModel->GetBackGroundIMG();
+	SDL_Surface* window = gameWindowModel->GetMainWIndow();
+	int width = gameWindowModel->GetWindowWidth();
+	int height = gameWindowModel->GetWindowHeight();
+
+	gameWindowView->DrawImage(&background, &window, width, height);
+}
+
+void Controller::GameWindowController::DispatchUpdateWindow()
+{
+	SDL_Surface* window = gameWindowModel->GetMainWIndow();
+	gameWindowView->UpdateWindow(&window);
+}
+
+void Controller::GameWindowController::DispatchSetMainWindow(int x, int y, int bpp, Uint32 flags)
+{
+	gameWindowModel->SetMainWindow(x, y, bpp, flags);
+}
+
+void Controller::GameWindowController::DispatchSetMainWindowCaption(const char* title, const char* icon)
+{
+	gameWindowModel->SetMainWindowCaption(title, icon);
 }

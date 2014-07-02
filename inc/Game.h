@@ -12,9 +12,21 @@
 #ifndef GAME_H_
 #define GAME_H_
 
+#include "engine/GameEngine.h"
+#include "controller/GameWindowController.h"
+#include "controller/LogicsController.h"
+
 class Game
 {
+public:
+	Game();
+	~Game();
+	void MainGameLoop(void);
 
+private:
+	GameEngine* gameEngine;
+	Controller::GameWindowController* gameWindowController;
+	Controller::LogicsController* logicsController;
 };
 
 

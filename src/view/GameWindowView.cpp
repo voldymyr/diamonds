@@ -23,7 +23,7 @@ void View::GameWindowView::UpdateWindow(SDL_Surface **window)
 	SDL_Flip(*window);
 }
 
-void View::GameWindowView::DrawBackground(SDL_Surface **img, SDL_Surface **window, int x, int y)
+void View::GameWindowView::DrawImage(SDL_Surface **img, SDL_Surface **window, int x, int y)
 {
 	SDL_Rect tmpRect;
 	tmpRect.x = x;

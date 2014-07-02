@@ -9,8 +9,8 @@
 #ifndef GAMEWINDOWMODEL_H_
 #define GAMEWINDOWMODEL_H_
 
-#include "../engine/GameEngine.h"
 #include "../Common.h"
+#include "../engine/GameEngine.h"
 
 namespace Model
 {
@@ -23,9 +23,10 @@ namespace Model
 		int GetWindowWidth(void);
 		void SetWindowHeight(int height);
 		int GetWindowHeight(void);
-		void SetMainWindow(SDL_Surface **window);
+		void SetMainWindow(int x, int y, int bpp, Uint32 flags);
 		SDL_Surface* GetMainWIndow(void);
-		void SetBackGroundIMG(SDL_Surface **img);
+		void SetMainWindowCaption(const char* title, const char* img);
+		void SetBackGroundIMG(const char* img);
 		SDL_Surface* GetBackGroundIMG(void);
 		void SetBackGroundRect(SDL_Rect *rect);
 		SDL_Rect GetBackGroundRect(void);
@@ -38,7 +39,7 @@ namespace Model
 		void SetGameOverRect(SDL_Rect *rect);
 		SDL_Rect GetGameOverRect(void);
 
-	protected:
+	private:
 		int windowWidth;
 		int windowHeight;
 		SDL_Surface* mainWindow;

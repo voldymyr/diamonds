@@ -8,12 +8,17 @@
 #ifndef LOGICSCONTROLLER_H_
 #define LOGICSCONTROLLER_H_
 
-#include "../inc/GameBoard.h"
-#include "../inc/GameWindowView.h"
-#include "../inc/GameWindowModel.h"
+#include "../model/GameBoard.h"
+//#include "../view/GameBoardView.h"
 
 namespace Controller
 {
+	class LogicsController
+	{
+	public:
+		LogicsController();
+		~LogicsController();
+	};
 }
 
 
