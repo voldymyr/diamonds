@@ -17,9 +17,17 @@ int main(int argc, char** argv)
 	if(!theGame)
 		cout << "Could not create Game!" << endl;
 
+	// Create and draw main window
+	theGame->CreateGameWindow(755, 600, 32, SDL_HWSURFACE, "rc/BackGround.jpg", "Diamonds");
+	theGame->DrawGameWindow();
+
+	// Set level time
+	float time = 60.0;
+	theGame->SetLevelTime(time);
+
+	// start the game
 	theGame->MainGameLoop();
 
-	printf("Hello World!");
 	return 0;
 }
 
