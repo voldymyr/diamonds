@@ -29,14 +29,14 @@ void Controller::GameWindowController::DispatchSetBackgroundImage(const char *im
 void Controller::GameWindowController::DispatchDrawBackgroundImage()
 {
 	SDL_Surface* background = gameWindowModel->GetBackGroundIMG();
-	SDL_Surface* window = gameWindowModel->GetMainWIndow();
+	SDL_Surface* window = gameWindowModel->GetMainWindow();
 
 	gameWindowView->DrawImage(background, window);
 }
 
 void Controller::GameWindowController::DispatchUpdateWindow()
 {
-	SDL_Surface* window = gameWindowModel->GetMainWIndow();
+	SDL_Surface* window = gameWindowModel->GetMainWindow();
 	gameWindowView->UpdateWindow(window);
 }
 

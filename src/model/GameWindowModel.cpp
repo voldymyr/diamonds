@@ -71,7 +71,7 @@ void Model::GameWindowModel::SetMainWindow(int x, int y, int bpp, Uint32 flags)
 		cout << "Could not set main window: " << SDL_GetError() << endl;
 }
 
-SDL_Surface* Model::GameWindowModel::GetMainWIndow()
+SDL_Surface* Model::GameWindowModel::GetMainWindow()
 {
 	return mainWindow;
 }

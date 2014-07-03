@@ -32,8 +32,8 @@ public:
 
 private:
 	void RegisterEvent();
-	void HandleLogicsEvent();
-	void HandleRestartEvent();
+	bool HandleLogicsEvent();
+	bool HandleRestartEvent();
 	bool HandleQuitEvent();
 
 private:

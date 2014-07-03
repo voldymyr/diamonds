@@ -24,7 +24,7 @@ namespace Model
 		void SetWindowHeight(int height);
 		int GetWindowHeight(void);
 		void SetMainWindow(int x, int y, int bpp, Uint32 flags);
-		SDL_Surface* GetMainWIndow(void);
+		SDL_Surface* GetMainWindow(void);
 		void SetMainWindowCaption(const char* title, const char* img);
 		void SetBackGroundIMG(const char* img);
 		SDL_Surface* GetBackGroundIMG(void);

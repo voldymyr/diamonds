@@ -63,11 +63,18 @@ void Game::MainGameLoop()
 
 		if(timeLeft <= 0)
 		{
-			this->HandleRestartEvent();
+			if(this->HandleRestartEvent())
+				continue;
 		}
 		else
 		{
-			this->HandleLogicsEvent();
+			if(this->HandleLogicsEvent())
+			{
+				// check if mouse over element
+
+				//cout << "Logics Event Happened!" << endl;
+				//SDL_Delay(200);
+			}
 		}
 	}
 }
@@ -75,6 +82,7 @@ void Game::MainGameLoop()
 void Game::SetLevelTime(float& t)
 {
 	allowedLevelTime = t;
+	timeLeft = allowedLevelTime;
 }
 
 void Game::RegisterEvent()
@@ -82,27 +90,35 @@ void Game::RegisterEvent()
 	SDL_PollEvent(&event);
 }
 
-void Game::HandleLogicsEvent()
+bool Game::HandleLogicsEvent()
 {
+	bool handled = false;
 	if(event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if(event.button.button == SDL_BUTTON_LEFT)
 		{
+			handled = true;
 			mousePosX = event.button.x;
 			mousePosY = event.button.y;
 		}
 	}
+
+	return handled;
 }
 
-void Game::HandleRestartEvent()
+bool Game::HandleRestartEvent()
 {
+	bool processed = false;
 	if(event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if(event.button.button == SDL_BUTTON_RIGHT)
 		{
+			processed = true;
 			timeLeft = allowedLevelTime;
 		}
 	}
+
+	return processed;
 }
 
 bool Game::HandleQuitEvent()
