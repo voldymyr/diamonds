@@ -27,7 +27,7 @@ public:
 	~Game();
 	void CreateGameWindow(int w, int h, int bpp, Uint32 flags, const char* img, const char* title);
 	void DrawGameWindow();
-	void MainGameLoop(void);
+	void MainGameLoop();
 	void SetLevelTime(float& t);
 
 private:
@@ -35,6 +35,7 @@ private:
 	bool HandleLogicsEvent();
 	bool HandleRestartEvent();
 	bool HandleQuitEvent();
+	void ResetGame();
 
 private:
 	GameEngine* gameEngine;
@@ -43,7 +44,6 @@ private:
 
 	SDL_Event event;
 	bool bQuit;
-	bool allowUserInteraction;
 	float allowedLevelTime;
 	float timeLeft;
 	float mousePosX;

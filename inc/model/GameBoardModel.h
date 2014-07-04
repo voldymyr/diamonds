@@ -1,12 +1,12 @@
 /*
- * GameBoard.h
+ * GameBoardModel.h
  *
  *  Created on: Jun 29, 2014
  *      Author: voldymyr
  */
 
-#ifndef GAMEBOARD_H_
-#define GAMEBOARD_H_
+#ifndef GAMEBOARDMODEL_H_
+#define GAMEBOARDMODEL_H_
 
 #include "../Common.h"
 #include <map>
@@ -22,7 +22,14 @@ namespace Model
 		float x;
 		float y;
 	};
+
+	class GameBoard
+	{
+	public:
+		GameBoard();
+		~GameBoard();
+	};
 }
 
 
-#endif /* GAMEBOARD_H_ */
+#endif /* GAMEBOARDMODEL_H_ */

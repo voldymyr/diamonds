@@ -8,7 +8,7 @@
 #ifndef LOGICSCONTROLLER_H_
 #define LOGICSCONTROLLER_H_
 
-#include "../model/GameBoard.h"
+#include "../model/GameBoardModel.h"
 //#include "../view/GameBoardView.h"
 
 namespace Controller

@@ -23,7 +23,6 @@ Game::Game()
 		cout << "Error: Could not init logicsController" << endl;
 
 	bQuit = false;
-	allowUserInteraction = true;
 	allowedLevelTime = 0.0;
 	timeLeft = 0.0;
 	mousePosX = mousePosY = 0;
@@ -54,6 +53,7 @@ void Game::MainGameLoop()
 
 	gameWindowController->DispatchUpdateWindow();
 
+	currentTime = SDL_GetTicks();
 	while(!bQuit)
 	{
 		this->RegisterEvent();
@@ -70,11 +70,9 @@ void Game::MainGameLoop()
 		{
 			if(this->HandleLogicsEvent())
 			{
-				// check if mouse over element
 
-				//cout << "Logics Event Happened!" << endl;
-				//SDL_Delay(200);
 			}
+
 		}
 	}
 }
@@ -114,7 +112,7 @@ bool Game::HandleRestartEvent()
 		if(event.button.button == SDL_BUTTON_RIGHT)
 		{
 			processed = true;
-			timeLeft = allowedLevelTime;
+			this->ResetGame();
 		}
 	}
 
@@ -129,4 +127,10 @@ bool Game::HandleQuitEvent()
 	}
 
 	return bQuit;
+}
+
+void Game::ResetGame()
+{
+	timeLeft = allowedLevelTime;
+	gameWindowController->SetUserInteractionStatus(true);
 }

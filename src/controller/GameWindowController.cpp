@@ -49,3 +49,13 @@ void Controller::GameWindowController::DispatchSetMainWindowCaption(const char* 
 {
 	gameWindowModel->SetMainWindowCaption(title, icon);
 }
+
+bool Controller::GameWindowController::GetUserInteractionStatus()
+{
+	return gameWindowModel->GetUserInteraction();
+}
+
+void Controller::GameWindowController::SetUserInteractionStatus(bool status)
+{
+	gameWindowModel->SetUserInteraction(status);
+}

@@ -26,6 +26,7 @@ Model::GameWindowModel::GameWindowModel()
 	gameOverRect.w = 0;
 	gameOverRect.x = 0;
 	gameOverRect.y = 0;
+	userInteractionAllowed = true;
 }
 
 Model::GameWindowModel::~GameWindowModel()
@@ -147,4 +148,14 @@ void Model::GameWindowModel::SetGameOverRect(SDL_Rect *rect)
 SDL_Rect Model::GameWindowModel::GetGameOverRect()
 {
 	return gameOverRect;
+}
+
+bool Model::GameWindowModel::GetUserInteraction()
+{
+	return userInteractionAllowed;
+}
+
+void Model::GameWindowModel::SetUserInteraction(bool inter)
+{
+	userInteractionAllowed = inter;
 }

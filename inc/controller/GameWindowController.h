@@ -23,6 +23,8 @@ namespace Controller
 		void DispatchUpdateWindow();
 		void DispatchSetMainWindow(int x, int y, int bpp, Uint32 flags);
 		void DispatchSetMainWindowCaption(const char* title, const char* icon);
+		bool GetUserInteractionStatus();
+		void SetUserInteractionStatus(bool status);
 
 	private:
 		Model::GameWindowModel *gameWindowModel;
