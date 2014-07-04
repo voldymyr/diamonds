@@ -61,6 +61,8 @@ void Game::MainGameLoop()
 		if(this->HandleQuitEvent())
 			break;
 
+		this->UpdateTime(oldTime, currentTime);
+
 		if(timeLeft <= 0)
 		{
 			if(this->HandleRestartEvent())
@@ -133,4 +135,11 @@ void Game::ResetGame()
 {
 	timeLeft = allowedLevelTime;
 	gameWindowController->SetUserInteractionStatus(true);
+}
+
+void Game::UpdateTime(Uint32& old, Uint32& curr)
+{
+	old = curr;
+	curr = SDL_GetTicks();
+	timeLeft -= (curr - old) / 1000.0f;
 }
