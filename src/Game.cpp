@@ -192,6 +192,7 @@ void Game::ProcessGameLogics()
 	 * 			{
 	 * 				gameWindowController->SetUserInteraction(true);
 	 * 				if(!logicsController->CheckForMoves())
+	 *					//this->ResetGame();
 	 * 			}
 	 * 		}
 	 * 		logicsController->DispatchDraw()
