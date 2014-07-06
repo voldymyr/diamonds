@@ -18,6 +18,12 @@ namespace Controller
 	public:
 		LogicsController();
 		~LogicsController();
+
+	private:
+		bool allowSwap;
+		bool allowSwapBack;
+		bool allowMoveDown;
+		bool allowDropNew;
 	};
 }
 

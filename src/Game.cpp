@@ -70,11 +70,17 @@ void Game::MainGameLoop()
 		}
 		else
 		{
-			if(this->HandleLogicsEvent())
+			if(gameWindowController->GetUserInteractionStatus())
 			{
-
+				if(this->HandleLogicsEvent())
+				{
+					// 1. two elements must be selected
+					// 2. SwapPossible():bool
+					// 3. MoveValid():void
+				}
 			}
 
+			// this->ProcessLogicsEvents();
 		}
 	}
 }
@@ -142,4 +148,53 @@ void Game::UpdateTime(Uint32& old, Uint32& curr)
 	old = curr;
 	curr = SDL_GetTicks();
 	timeLeft -= (curr - old) / 1000.0f;
+}
+
+void Game::ProcessGameLogics()
+{
+	/* if(logicsController->SwapAllowed())
+	 * {
+	 * 		if(logicsController->Swap())
+	 * 		{
+	 * 			logicdController->SetSwapAllowed(false);
+	 * 			logicsController->AllowMoveDown(true);
+	 * 		}
+	 * 		logicsController->DispatchDraw()
+	 * }
+	 * else if(logicsController->SwapBackAllowed())
+	 * {
+	 * 		if(logicsController->SwapBack())
+	 * 		{
+	 * 			gameWindowController->SetUserInteraction(true);
+	 * 		}
+	 * 		logicsController->DispatchDraw()
+	 * }
+	 * else if(logicsController->MoveDownAllowed())
+	 * {
+	 * 		if(logicsController->MoveDown())
+	 * 		{
+	 * 			logicsController->SetMoveDownAllowed(false);
+	 * 			logicsController->AllowDropNew(true);
+	 * 		}
+	 * 		logicsController->DispatchDraw()
+	 * }
+	 * else if(logicsController->DropNewAllowed())
+	 * {
+	 * 		if(logicsController->DropNew())
+	 * 		{
+	 * 			logicsController->SetDropNewAllowed(false);
+	 * 			if(logicsController->FindChains())
+	 * 			{
+	 *				logicsController->RemoveChains();
+	 *				logicsController->SetMoveDown(true);
+	 * 			}
+	 * 			else
+	 * 			{
+	 * 				gameWindowController->SetUserInteraction(true);
+	 * 				if(!logicsController->CheckForMoves())
+	 * 			}
+	 * 		}
+	 * 		logicsController->DispatchDraw()
+	 * }
+	 */
 }

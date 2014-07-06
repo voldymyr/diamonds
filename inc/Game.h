@@ -37,6 +37,7 @@ private:
 	bool HandleQuitEvent();
 	void ResetGame();
 	void UpdateTime(Uint32& old, Uint32& curr);
+	void ProcessGameLogics();
 
 private:
 	GameEngine* gameEngine;

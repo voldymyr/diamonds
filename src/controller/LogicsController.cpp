@@ -9,7 +9,10 @@
 
 Controller::LogicsController::LogicsController()
 {
-
+	allowSwap = false;
+	allowSwapBack = false;
+	allowMoveDown = false;
+	allowDropNew = false;
 }
 
 Controller::LogicsController::~LogicsController()
