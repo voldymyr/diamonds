@@ -23,11 +23,11 @@ namespace Model
 		float y;
 	};
 
-	class GameBoard
+	class GameBoardModel
 	{
 	public:
-		GameBoard();
-		~GameBoard();
+		GameBoardModel();
+		~GameBoardModel();
 	};
 }
 

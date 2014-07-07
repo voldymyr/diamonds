@@ -9,6 +9,9 @@
 
 Controller::LogicsController::LogicsController()
 {
+	gameBoardView = new View::GameBoardView();
+	gameBoardModel = new Model::GameBoardModel();
+
 	allowSwap = false;
 	allowSwapBack = false;
 	allowMoveDown = false;
@@ -17,9 +20,95 @@ Controller::LogicsController::LogicsController()
 
 Controller::LogicsController::~LogicsController()
 {
-
+	delete gameBoardModel;
+	delete gameBoardView;
 }
 
+bool Controller::LogicsController::SwapAllowed()
+{
+	return allowSwap;
+}
 
+void Controller::LogicsController::SetSwapAllowed(bool status)
+{
+	allowSwap = status;
+}
 
+bool Controller::LogicsController::SwapBackAllowed()
+{
+	return allowSwapBack;
+}
 
+void Controller::LogicsController::SetSwapBackAllowed(bool status)
+{
+	allowSwapBack = status;
+}
+
+bool Controller::LogicsController::MoveDownAllowed()
+{
+	return allowMoveDown;
+}
+
+void Controller::LogicsController::SetMoveDownAllowed(bool status)
+{
+	allowMoveDown = status;
+}
+
+bool Controller::LogicsController::DropNewAllowed()
+{
+	return allowDropNew;
+}
+
+void Controller::LogicsController::SetDropNewAllowed(bool status)
+{
+	allowDropNew = status;
+}
+
+bool Controller::LogicsController::Swap()
+{
+	return true;
+}
+
+bool Controller::LogicsController::SwapBack()
+{
+	return true;
+}
+
+bool Controller::LogicsController::MoveDown()
+{
+	return true;
+}
+
+bool Controller::LogicsController::DropNew()
+{
+	return true;
+}
+
+bool Controller::LogicsController::FindAndRemoveChains()
+{
+	return false;
+}
+
+bool Controller::LogicsController::CheckForMoves()
+{
+	return true;
+}
+
+void Controller::LogicsController::HandleLMButtonClick(float x, float y)
+{
+	if(SwapPossible())
+		CheckMoveValidity();
+}
+
+bool Controller::LogicsController::SwapPossible()
+{
+	return false;
+}
+
+void Controller::LogicsController::CheckMoveValidity()
+{
+}
+void Controller::LogicsController::DispatchDraw()
+{
+
+}

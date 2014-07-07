@@ -32,7 +32,7 @@ public:
 
 private:
 	void RegisterEvent();
-	bool HandleLogicsEvent();
+	void HandleLogicsEvent();
 	bool HandleRestartEvent();
 	bool HandleQuitEvent();
 	void ResetGame();
@@ -50,6 +50,7 @@ private:
 	float timeLeft;
 	float mousePosX;
 	float mousePosY;
+	bool noMoreMoves;
 };
 
 

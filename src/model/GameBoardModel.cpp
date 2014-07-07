@@ -8,5 +8,15 @@
 
 #include "../../inc/model/GameBoardModel.h"
 
+Model::GameBoardModel::GameBoardModel()
+{
+
+}
+
+Model::GameBoardModel::~GameBoardModel()
+{
+
+}
+
 
 

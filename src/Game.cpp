@@ -26,6 +26,7 @@ Game::Game()
 	allowedLevelTime = 0.0;
 	timeLeft = 0.0;
 	mousePosX = mousePosY = 0;
+	noMoreMoves = false;
 }
 
 Game::~Game()
@@ -63,24 +64,26 @@ void Game::MainGameLoop()
 
 		this->UpdateTime(oldTime, currentTime);
 
-		if(timeLeft <= 0)
+		if(noMoreMoves)
 		{
+			// Drow Specifis stuff here
+			if(this->HandleRestartEvent())
+				continue;
+		}
+		else if(timeLeft <= 0)
+		{
+			// Drow specific stuff here
 			if(this->HandleRestartEvent())
 				continue;
 		}
 		else
 		{
-			if(gameWindowController->GetUserInteractionStatus())
-			{
-				if(this->HandleLogicsEvent())
-				{
-					// 1. two elements must be selected
-					// 2. SwapPossible():bool
-					// 3. MoveValid():void
-				}
-			}
+			// Draw Time
 
-			// this->ProcessLogicsEvents();
+			if(gameWindowController->GetUserInteractionStatus())
+				this->HandleLogicsEvent();
+
+			this->ProcessGameLogics();
 		}
 	}
 }
@@ -96,20 +99,18 @@ void Game::RegisterEvent()
 	SDL_PollEvent(&event);
 }
 
-bool Game::HandleLogicsEvent()
+void Game::HandleLogicsEvent()
 {
-	bool handled = false;
 	if(event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		if(event.button.button == SDL_BUTTON_LEFT)
 		{
-			handled = true;
 			mousePosX = event.button.x;
 			mousePosY = event.button.y;
+
+			logicsController->HandleLMButtonClick(mousePosX, mousePosY);
 		}
 	}
-
-	return handled;
 }
 
 bool Game::HandleRestartEvent()
@@ -152,50 +153,51 @@ void Game::UpdateTime(Uint32& old, Uint32& curr)
 
 void Game::ProcessGameLogics()
 {
-	/* if(logicsController->SwapAllowed())
-	 * {
-	 * 		if(logicsController->Swap())
-	 * 		{
-	 * 			logicdController->SetSwapAllowed(false);
-	 * 			logicsController->AllowMoveDown(true);
-	 * 		}
-	 * 		logicsController->DispatchDraw()
-	 * }
-	 * else if(logicsController->SwapBackAllowed())
-	 * {
-	 * 		if(logicsController->SwapBack())
-	 * 		{
-	 * 			gameWindowController->SetUserInteraction(true);
-	 * 		}
-	 * 		logicsController->DispatchDraw()
-	 * }
-	 * else if(logicsController->MoveDownAllowed())
-	 * {
-	 * 		if(logicsController->MoveDown())
-	 * 		{
-	 * 			logicsController->SetMoveDownAllowed(false);
-	 * 			logicsController->AllowDropNew(true);
-	 * 		}
-	 * 		logicsController->DispatchDraw()
-	 * }
-	 * else if(logicsController->DropNewAllowed())
-	 * {
-	 * 		if(logicsController->DropNew())
-	 * 		{
-	 * 			logicsController->SetDropNewAllowed(false);
-	 * 			if(logicsController->FindChains())
-	 * 			{
-	 *				logicsController->RemoveChains();
-	 *				logicsController->SetMoveDown(true);
-	 * 			}
-	 * 			else
-	 * 			{
-	 * 				gameWindowController->SetUserInteraction(true);
-	 * 				if(!logicsController->CheckForMoves())
-	 *					//this->ResetGame();
-	 * 			}
-	 * 		}
-	 * 		logicsController->DispatchDraw()
-	 * }
-	 */
+	if(logicsController->SwapAllowed())
+	 {
+		if(logicsController->Swap())
+		{
+			logicsController->SetSwapAllowed(false);
+			logicsController->SetMoveDownAllowed(true);
+		}
+
+		logicsController->DispatchDraw();
+	 }
+	 else if(logicsController->SwapBackAllowed())
+	 {
+		 if(logicsController->SwapBack())
+		 {
+			 logicsController->SetSwapBackAllowed(false);
+			 gameWindowController->SetUserInteractionStatus(true);
+		 }
+
+		 logicsController->DispatchDraw();
+	 }
+	 else if(logicsController->MoveDownAllowed())
+	 {
+		 if(logicsController->MoveDown())
+		 {
+			 logicsController->SetMoveDownAllowed(false);
+			 logicsController->SetDropNewAllowed(true);
+		 }
+
+		 logicsController->DispatchDraw();
+	 }
+	 else if(logicsController->DropNewAllowed())
+	 {
+		 if(logicsController->DropNew())
+		 {
+			 logicsController->SetDropNewAllowed(false);
+			 if(logicsController->FindAndRemoveChains())
+				 logicsController->SetMoveDownAllowed(true);
+			 else
+			 {
+				 gameWindowController->SetUserInteractionStatus(true);
+				 if(!logicsController->CheckForMoves())
+					 noMoreMoves = true;
+			 }
+		 }
+
+		 logicsController->DispatchDraw();
+	 }
 }
