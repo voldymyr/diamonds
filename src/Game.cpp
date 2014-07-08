@@ -66,7 +66,7 @@ void Game::MainGameLoop()
 
 		if(noMoreMoves)
 		{
-			// Drow Specifis stuff here
+			// Drow Specific stuff here
 			if(this->HandleRestartEvent())
 				continue;
 		}

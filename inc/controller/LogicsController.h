@@ -19,13 +19,13 @@ namespace Controller
 		LogicsController();
 		~LogicsController();
 
-		bool SwapAllowed();
+		bool SwapAllowed() const;
 		void SetSwapAllowed(bool status);
-		bool SwapBackAllowed();
+		bool SwapBackAllowed() const;
 		void SetSwapBackAllowed(bool status);
-		bool MoveDownAllowed();
+		bool MoveDownAllowed() const;
 		void SetMoveDownAllowed(bool status);
-		bool DropNewAllowed();
+		bool DropNewAllowed() const;
 		void SetDropNewAllowed(bool status);
 
 		bool Swap();

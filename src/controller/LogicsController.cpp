@@ -24,7 +24,7 @@ Controller::LogicsController::~LogicsController()
 	delete gameBoardView;
 }
 
-bool Controller::LogicsController::SwapAllowed()
+bool Controller::LogicsController::SwapAllowed() const
 {
 	return allowSwap;
 }
@@ -34,7 +34,7 @@ void Controller::LogicsController::SetSwapAllowed(bool status)
 	allowSwap = status;
 }
 
-bool Controller::LogicsController::SwapBackAllowed()
+bool Controller::LogicsController::SwapBackAllowed() const
 {
 	return allowSwapBack;
 }
@@ -44,7 +44,7 @@ void Controller::LogicsController::SetSwapBackAllowed(bool status)
 	allowSwapBack = status;
 }
 
-bool Controller::LogicsController::MoveDownAllowed()
+bool Controller::LogicsController::MoveDownAllowed() const
 {
 	return allowMoveDown;
 }
@@ -54,7 +54,7 @@ void Controller::LogicsController::SetMoveDownAllowed(bool status)
 	allowMoveDown = status;
 }
 
-bool Controller::LogicsController::DropNewAllowed()
+bool Controller::LogicsController::DropNewAllowed() const
 {
 	return allowDropNew;
 }

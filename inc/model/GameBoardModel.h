@@ -28,6 +28,16 @@ namespace Model
 	public:
 		GameBoardModel();
 		~GameBoardModel();
+
+		vector<BoardElement> GetLevelModel() const;
+		vector<BoardElement> GetBoardElements() const;
+		BoardElement GetLevelModelElementByID(int id) const;
+		BoardElement GetBoardElementByID(int id) const;
+
+	private:
+		vector<BoardElement> levelModel;
+		vector<BoardElement> elements;
+
 	};
 }
 
