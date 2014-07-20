@@ -108,7 +108,8 @@ void Game::HandleLogicsEvent()
 			mousePosX = event.button.x;
 			mousePosY = event.button.y;
 
-			logicsController->HandleLMButtonClick(mousePosX, mousePosY);
+			if(logicsController->HandleLMButtonClick(mousePosX, mousePosY))
+				gameWindowController->SetUserInteractionStatus(false);
 		}
 	}
 }

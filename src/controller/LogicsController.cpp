@@ -94,10 +94,21 @@ bool Controller::LogicsController::CheckForMoves()
 	return true;
 }
 
-void Controller::LogicsController::HandleLMButtonClick(float x, float y)
+bool Controller::LogicsController::HandleLMButtonClick(float x, float y)
 {
-	if(SwapPossible())
-		CheckMoveValidity();
+	bool bStatus = false;
+
+	// int elID = IsElementClicked(x, y);
+	// if(elID >= 0)
+	// {
+	// 		if(PairSelected(elID))
+	//		{
+	//			bStatus = true;
+	//			CheckMoveValidity();
+	//		}
+	// }
+
+	return bStatus;
 }
 
 bool Controller::LogicsController::SwapPossible()
@@ -108,6 +119,7 @@ bool Controller::LogicsController::SwapPossible()
 void Controller::LogicsController::CheckMoveValidity()
 {
 }
+
 void Controller::LogicsController::DispatchDraw()
 {
 

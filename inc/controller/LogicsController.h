@@ -35,7 +35,7 @@ namespace Controller
 
 		bool FindAndRemoveChains();
 		bool CheckForMoves();
-		void HandleLMButtonClick(float x, float y);
+		bool HandleLMButtonClick(float x, float y);
 
 		void DispatchDraw();
 
