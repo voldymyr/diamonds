@@ -115,7 +115,7 @@ int Controller::LogicsController::IsElementClicked(float x, float y)
 
 	for(unsigned int i = 0; i < diamonds.size(); i++)
 	{
-		if((x > diamonds.at(i).x) && (x < diamonds.at(i).x + gameBoardModel->GetElementWidth()) && (y > diamonds.at(i).y) && (y < diamonds.at(i).y + gameBoardModel->GetElementHeight()))
+		if((x > diamonds.at(i).pos.x) && (x < diamonds.at(i).pos.x + gameBoardModel->GetElementWidth()) && (y > diamonds.at(i).pos.y) && (y < diamonds.at(i).pos.y + gameBoardModel->GetElementHeight()))
 		{
 			elID = diamonds.at(i).id;
 			break;

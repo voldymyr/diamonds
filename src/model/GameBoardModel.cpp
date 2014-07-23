@@ -94,3 +94,19 @@ int Model::GameBoardModel::GetBoardHeight() const
 {
 	return boardHeight;
 }
+
+void Model::GameBoardModel::LoadElementImages(map<ElementType, string>& imgs)
+{
+	for(map<ElementType, string>::iterator it = imgs.begin(); it != imgs.end(); ++it)
+	{
+		elementImages.insert(make_pair<ElementType, SDL_Surface*>(it->first, IMG_Load(it->second.c_str())));
+		if(!elementImages.at(it->first))
+			cout << "Could not load Element PNG: " << SDL_GetError() << endl;
+	}
+}
+
+void Model::GameBoardModel::UnloadElementImages()
+{
+	for(map<ElementType, SDL_Surface*>::iterator it = elementImages.begin(); it!= elementImages.end(); ++it)
+			SDL_FreeSurface(it->second);
+}

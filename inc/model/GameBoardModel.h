@@ -20,8 +20,7 @@ namespace Model
 		int id;
 		ElementType type;
 		int value;
-		float x;
-		float y;
+		SDL_Rect pos;
 	};
 
 	class GameBoardModel
@@ -49,6 +48,9 @@ namespace Model
 		void SetBoardHeight(int h);
 		int GetBoardHeight() const;
 
+		void LoadElementImages(map<ElementType, string>& imgs);
+		void UnloadElementImages();
+
 	private:
 		vector<BoardElement> levelModel;
 		vector<BoardElement> elements;
@@ -62,8 +64,6 @@ namespace Model
 		// All different element images
 		map<ElementType, SDL_Surface*> elementImages;
 
-		// Positions of each element on the board
-		multimap<ElementType, SDL_Rect> elementPositions;
 	};
 }
 
