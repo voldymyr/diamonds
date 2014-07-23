@@ -94,6 +94,11 @@ void Game::SetLevelTime(float& t)
 	timeLeft = allowedLevelTime;
 }
 
+void Game::InitGameBoard(int w, int h)
+{
+	logicsController->InitGameBoard(w, h);
+}
+
 void Game::RegisterEvent()
 {
 	SDL_PollEvent(&event);

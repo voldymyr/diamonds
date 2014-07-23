@@ -29,6 +29,7 @@ public:
 	void DrawGameWindow();
 	void MainGameLoop();
 	void SetLevelTime(float& t);
+	void InitGameBoard(int w, int h);
 
 private:
 	void RegisterEvent();

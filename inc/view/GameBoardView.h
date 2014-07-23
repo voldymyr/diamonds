@@ -8,6 +8,8 @@
 #ifndef GAMEBOARDVIEW_H_
 #define GAMEBOARDVIEW_H_
 
+#include "../Common.h"
+
 namespace View
 {
 	class GameBoardView
@@ -15,6 +17,8 @@ namespace View
 	public:
 		GameBoardView();
 		~GameBoardView();
+
+		//void DrawElements(SDL_Surface*& window, vector<SDL_Surface*> img);
 	};
 }
 

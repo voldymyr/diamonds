@@ -16,7 +16,7 @@
 using namespace std;
 
 /* Types of elements on the game board */
-enum ElementType {Yellow, Green, Blue, Purple, Red, None};
+enum ElementType {Yellow = 10, Green = 20, Blue = 30, Purple = 40, Red = 50, None = 60};
 
 /* Common structure representing position of objects on the 2D game board */
 struct Position

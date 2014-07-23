@@ -25,6 +25,7 @@ namespace Controller
 		void DispatchSetMainWindowCaption(const char* title, const char* icon);
 		bool GetUserInteractionStatus();
 		void SetUserInteractionStatus(bool status);
+		//SDL_Surface* GetMainWindow();
 
 	private:
 		Model::GameWindowModel *gameWindowModel;

@@ -38,9 +38,11 @@ namespace Controller
 		bool HandleLMButtonClick(float x, float y);
 
 		void DispatchDraw();
+		void InitGameBoard(int w, int h);
 
 	private:
-		bool SwapPossible();
+		int IsElementClicked(float x, float y);
+		bool PairSelected(int id);
 		void CheckMoveValidity();
 
 	private:
@@ -51,6 +53,9 @@ namespace Controller
 		bool allowSwapBack;
 		bool allowMoveDown;
 		bool allowDropNew;
+
+		vector<Model::BoardElement> swapPair;
+		vector< vector<int> > movesRegistry;
 	};
 }
 
