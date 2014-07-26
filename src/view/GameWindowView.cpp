@@ -10,12 +10,10 @@
 
 View::GameWindowView::GameWindowView()
 {
-
 }
 
 View::GameWindowView::~GameWindowView()
 {
-
 }
 
 void View::GameWindowView::UpdateWindow(SDL_Surface*& window)

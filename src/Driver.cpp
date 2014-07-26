@@ -13,17 +13,33 @@
 
 int main(int argc, char** argv)
 {
+	srand(time(NULL));
 	Game* theGame = new Game;
 	if(!theGame)
 		cout << "Could not create Game!" << endl;
 
 	// Create and draw main window
 	theGame->CreateGameWindow(755, 600, 32, SDL_HWSURFACE, "rc/BackGround.jpg", "Diamonds");
-	theGame->DrawGameWindow();
+	//theGame->DrawGameWindow();
+
+	string str1 = "rc/Yellow.png";
+	string str2 = "rc/Green.png";
+	string str3 = "rc/Blue.png";
+	string str4 = "rc/Purple.png";
+	string str5 = "rc/Red.png";
+
+	map<ElementType, string> pngs;
+	pngs.insert(make_pair<ElementType, string>(Yellow, str1));
+	pngs.insert(make_pair<ElementType, string>(Green, str2));
+	pngs.insert(make_pair<ElementType, string>(Blue, str3));
+	pngs.insert(make_pair<ElementType, string>(Purple, str4));
+	pngs.insert(make_pair<ElementType, string>(Red, str5));
+
+	theGame->LoadElementImages(pngs);
 
 	// Set level time
-	float time = 60.0;
-	theGame->SetLevelTime(time);
+	float t = 60.0;
+	theGame->SetLevelTime(t);
 
 	// start the game
 	theGame->MainGameLoop();

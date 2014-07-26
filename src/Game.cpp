@@ -52,6 +52,15 @@ void Game::MainGameLoop()
 {
 	Uint32 oldTime = 0, currentTime = 0;
 
+
+	logicsController->ShuffleElements();
+	SDL_Surface* window = gameWindowController->GetMainWindow();
+	if(!window)
+		cout << "Could not get window!" << endl;
+
+	gameWindowController->DispatchDrawBackgroundImage();
+	logicsController->DispatchDrawElements(window);
+
 	gameWindowController->DispatchUpdateWindow();
 
 	currentTime = SDL_GetTicks();
@@ -97,6 +106,11 @@ void Game::SetLevelTime(float& t)
 void Game::InitGameBoard(int w, int h)
 {
 	logicsController->InitGameBoard(w, h);
+}
+
+void Game::LoadElementImages(map<ElementType, string>& imgs)
+{
+	logicsController->LoadElementImages(imgs);
 }
 
 void Game::RegisterEvent()
@@ -159,6 +173,8 @@ void Game::UpdateTime(Uint32& old, Uint32& curr)
 
 void Game::ProcessGameLogics()
 {
+	SDL_Surface* window = gameWindowController->GetMainWindow();
+
 	if(logicsController->SwapAllowed())
 	 {
 		if(logicsController->Swap())
@@ -167,7 +183,7 @@ void Game::ProcessGameLogics()
 			logicsController->SetMoveDownAllowed(true);
 		}
 
-		logicsController->DispatchDraw();
+		logicsController->DispatchDrawElements(window);
 	 }
 	 else if(logicsController->SwapBackAllowed())
 	 {
@@ -177,7 +193,7 @@ void Game::ProcessGameLogics()
 			 gameWindowController->SetUserInteractionStatus(true);
 		 }
 
-		 logicsController->DispatchDraw();
+		 logicsController->DispatchDrawElements(window);
 	 }
 	 else if(logicsController->MoveDownAllowed())
 	 {
@@ -187,7 +203,7 @@ void Game::ProcessGameLogics()
 			 logicsController->SetDropNewAllowed(true);
 		 }
 
-		 logicsController->DispatchDraw();
+		 logicsController->DispatchDrawElements(window);
 	 }
 	 else if(logicsController->DropNewAllowed())
 	 {
@@ -204,6 +220,8 @@ void Game::ProcessGameLogics()
 			 }
 		 }
 
-		 logicsController->DispatchDraw();
+		 logicsController->DispatchDrawElements(window);
 	 }
+
+	SDL_FreeSurface(window);
 }

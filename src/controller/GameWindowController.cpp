@@ -59,3 +59,8 @@ void Controller::GameWindowController::SetUserInteractionStatus(bool status)
 {
 	gameWindowModel->SetUserInteraction(status);
 }
+
+SDL_Surface* Controller::GameWindowController::GetMainWindow() const
+{
+	return gameWindowModel->GetMainWindow();
+}
