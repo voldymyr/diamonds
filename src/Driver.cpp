@@ -37,6 +37,11 @@ int main(int argc, char** argv)
 
 	theGame->LoadElementImages(pngs);
 
+	theGame->SetGameBoardDimension(8, 8);
+	theGame->SetElementDimensions(36, 36);
+	theGame->SetElementOffset(10);
+	theGame->SetElementsStartPixelsXY(320, 100);
+
 	// Set level time
 	float t = 60.0;
 	theGame->SetLevelTime(t);

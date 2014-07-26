@@ -272,3 +272,26 @@ void Controller::LogicsController::LoadElementImages(map<ElementType, string>& i
 {
 	gameBoardModel->LoadElementImages(imgs);
 }
+
+void Controller::LogicsController::SetGameBoardDimension(int x, int y)
+{
+	gameBoardModel->SetBoardWidth(x);
+	gameBoardModel->SetBoardHeight(y);
+}
+
+void Controller::LogicsController::SetElementDimensions(int x, int y)
+{
+	gameBoardModel->SetElementWidth(x);
+	gameBoardModel->SetElementHeight(y);
+}
+
+void Controller::LogicsController::SetElementOffset(int offs)
+{
+	gameBoardModel->SetElementOffset(offs);
+}
+
+void Controller::LogicsController::SetElementsStartPixelsXY(int x, int y)
+{
+	gameBoardModel->SetElementStartPixelX(x);
+	gameBoardModel->SetElementStartPixelY(y);
+}

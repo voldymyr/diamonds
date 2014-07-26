@@ -31,6 +31,10 @@ public:
 	void SetLevelTime(float& t);
 	void InitGameBoard(int w, int h);
 	void LoadElementImages(map<ElementType, string>& imgs);
+	void SetGameBoardDimension(int w, int h);
+	void SetElementDimensions(int w, int h);
+	void SetElementOffset(int offs);
+	void SetElementsStartPixelsXY(int x, int y);
 
 private:
 	void RegisterEvent();

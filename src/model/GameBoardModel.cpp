@@ -65,7 +65,7 @@ void Model::GameBoardModel::SetElementWidth(int w)
 
 int Model::GameBoardModel::GetElementWidth() const
 {
-	return 36; //elementWidth;
+	return elementWidth;
 }
 
 void Model::GameBoardModel::SetElementHeight(int h)
@@ -75,7 +75,7 @@ void Model::GameBoardModel::SetElementHeight(int h)
 
 int Model::GameBoardModel::GetElementHeight() const
 {
-	return 36; //elementHeight;
+	return elementHeight;
 }
 
 void Model::GameBoardModel::SetBoardWidth(int w)
@@ -85,7 +85,7 @@ void Model::GameBoardModel::SetBoardWidth(int w)
 
 int Model::GameBoardModel::GetBoardWidth() const
 {
-	return 8; //boardWidth;
+	return boardWidth;
 }
 
 void Model::GameBoardModel::SetBoardHeight(int h)
@@ -95,7 +95,7 @@ void Model::GameBoardModel::SetBoardHeight(int h)
 
 int Model::GameBoardModel::GetBoardHeight() const
 {
-	return 8; //boardHeight;
+	return boardHeight;
 }
 
 void Model::GameBoardModel::SetElementOffset(int offs)
@@ -105,7 +105,7 @@ void Model::GameBoardModel::SetElementOffset(int offs)
 
 int Model::GameBoardModel::GetElementOffset() const
 {
-	return 10; //elementOffset;
+	return elementOffset;
 }
 
 void Model::GameBoardModel::SetElementStartPixelX(int x)
@@ -115,7 +115,7 @@ void Model::GameBoardModel::SetElementStartPixelX(int x)
 
 int Model::GameBoardModel::GetElementStartPixelX() const
 {
-	return 320; //elementStartPixelX;
+	return elementStartPixelX;
 }
 
 void Model::GameBoardModel::SetElementStartPixelY(int y)
@@ -125,7 +125,7 @@ void Model::GameBoardModel::SetElementStartPixelY(int y)
 
 int Model::GameBoardModel::GetElementStartPixelY() const
 {
-	return 100; //elementStartPixelY;
+	return elementStartPixelY;
 }
 
 void Model::GameBoardModel::LoadElementImages(map<ElementType, string>& imgs)

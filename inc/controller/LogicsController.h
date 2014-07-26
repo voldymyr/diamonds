@@ -42,6 +42,11 @@ namespace Controller
 		void ShuffleElements();
 		void LoadElementImages(map<ElementType, string>& imgs);
 
+		void SetGameBoardDimension(int x, int y);
+		void SetElementDimensions(int x, int y);
+		void SetElementOffset(int offs);
+		void SetElementsStartPixelsXY(int x, int y);
+
 	private:
 		int IsElementClicked(float x, float y);
 		bool PairSelected(int id);

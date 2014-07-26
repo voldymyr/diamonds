@@ -52,11 +52,8 @@ void Game::MainGameLoop()
 {
 	Uint32 oldTime = 0, currentTime = 0;
 
-
 	logicsController->ShuffleElements();
 	SDL_Surface* window = gameWindowController->GetMainWindow();
-	if(!window)
-		cout << "Could not get window!" << endl;
 
 	gameWindowController->DispatchDrawBackgroundImage();
 	logicsController->DispatchDrawElements(window);
@@ -111,6 +108,26 @@ void Game::InitGameBoard(int w, int h)
 void Game::LoadElementImages(map<ElementType, string>& imgs)
 {
 	logicsController->LoadElementImages(imgs);
+}
+
+void Game::SetGameBoardDimension(int w, int h)
+{
+	logicsController->SetGameBoardDimension(w, h);
+}
+
+void Game::SetElementDimensions(int w, int h)
+{
+	logicsController->SetElementDimensions(w, h);
+}
+
+void Game::SetElementOffset(int offs)
+{
+	logicsController->SetElementOffset(offs);
+}
+
+void Game::SetElementsStartPixelsXY(int x, int y)
+{
+	logicsController->SetElementsStartPixelsXY(x, y);
 }
 
 void Game::RegisterEvent()
