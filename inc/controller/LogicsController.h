@@ -37,8 +37,10 @@ namespace Controller
 		bool CheckForMoves();
 		bool HandleLMButtonClick(float x, float y);
 
-		void DispatchDraw();
+		void DispatchDrawElements(SDL_Surface*& window);
 		void InitGameBoard(int w, int h);
+		void ShuffleElements();
+		void LoadElementImages(map<ElementType, string>& imgs);
 
 	private:
 		int IsElementClicked(float x, float y);

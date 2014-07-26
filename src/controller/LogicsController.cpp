@@ -201,13 +201,74 @@ void Controller::LogicsController::CheckMoveValidity()
 		allowSwapBack = true;
 }
 
-void Controller::LogicsController::DispatchDraw()
+void Controller::LogicsController::DispatchDrawElements(SDL_Surface*& window)
 {
+	map<ElementType, SDL_Surface*> images = gameBoardModel->GetElementImages();
+	vector<Model::BoardElement> els = gameBoardModel->GetBoardElements();
 
+	gameBoardView->DrawElements(window, images, els);
 }
 
 void Controller::LogicsController::InitGameBoard(int w, int h)
 {
 	gameBoardModel->SetBoardWidth(w);
 	gameBoardModel->SetBoardHeight(h);
+}
+
+void Controller::LogicsController::ShuffleElements()
+{
+	int bWidth = gameBoardModel->GetBoardWidth();
+	int bHeight = gameBoardModel->GetBoardHeight();
+	int elHeight = gameBoardModel->GetElementHeight();
+	int elWidth = gameBoardModel->GetElementWidth();
+	int elOffset = gameBoardModel->GetElementOffset();
+	int numImages = gameBoardModel->GetNumElementImages();
+	int initX = gameBoardModel->GetElementStartPixelX(); //320 not yet set
+	int initY = gameBoardModel->GetElementStartPixelY(); //100
+	int offset_x = elWidth + elOffset;
+	int offset_y = 0;
+
+	Model::BoardElement tmpEl;
+	vector<Model::BoardElement> bElements;
+
+	//elements.clear();
+
+	for(int row = 0; row < bHeight; row++)
+	{
+		for(int col = 0; col < bWidth; col++)
+		{
+			// make sure we do not have more than 2 elements of same type in a row or column
+			do
+			{
+				// generate element type, but not type "None"
+				do
+				{
+					tmpEl.type = (ElementType)((rand() % numImages + 1) * 10);
+				}while(tmpEl.type == None);
+
+			}while(((col >= 2) && (tmpEl.type == bElements[(row * bWidth) + (col - 1)].type) && (tmpEl.type == bElements[(row * bWidth) + (col - 2)].type)) || ((row >= 2) && (tmpEl.type == bElements[((row - 1) * bWidth) + col].type) && (tmpEl.type == bElements[((row - 2) * bWidth) + col].type)));
+
+			tmpEl.value = (int)tmpEl.type;
+			tmpEl.id = (row * bWidth) + col;
+			tmpEl.pos.h = 36;
+			tmpEl.pos.w = 36;
+
+			if(col == 0)
+			{
+				tmpEl.pos.x = initX;
+				tmpEl.pos.y = initY + offset_y;
+				offset_y += elHeight + elOffset;
+			}
+			else
+				tmpEl.pos.x += offset_x;
+
+			bElements.push_back(tmpEl);
+		}
+	}
+	gameBoardModel->InitBoardElements(bElements);
+}
+
+void Controller::LogicsController::LoadElementImages(map<ElementType, string>& imgs)
+{
+	gameBoardModel->LoadElementImages(imgs);
 }

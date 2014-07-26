@@ -47,9 +47,19 @@ namespace Model
 		int GetBoardWidth() const;
 		void SetBoardHeight(int h);
 		int GetBoardHeight() const;
+		void SetElementOffset(int offs);
+		int GetElementOffset() const;
+		void SetElementStartPixelX(int x);
+		int GetElementStartPixelX() const;
+		void SetElementStartPixelY(int y);
+		int GetElementStartPixelY() const;
 
 		void LoadElementImages(map<ElementType, string>& imgs);
 		void UnloadElementImages();
+		map<ElementType, SDL_Surface*> GetElementImages() const;
+
+		int GetNumElementImages();
+
 
 	private:
 		vector<BoardElement> levelModel;
@@ -57,6 +67,9 @@ namespace Model
 
 		int elementWidth;
 		int elementHeight;
+		int elementOffset;
+		int elementStartPixelX;
+		int elementStartPixelY;
 
 		int boardWidth;
 		int boardHeight;

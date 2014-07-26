@@ -12,6 +12,9 @@ Model::GameBoardModel::GameBoardModel()
 {
 	elementWidth = 0;
 	elementHeight = 0;
+	elementOffset = 0;
+	elementStartPixelX = 0;
+	elementStartPixelY = 0;
 	boardWidth = 0;
 	boardHeight = 0;
 }
@@ -62,7 +65,7 @@ void Model::GameBoardModel::SetElementWidth(int w)
 
 int Model::GameBoardModel::GetElementWidth() const
 {
-	return elementWidth;
+	return 36; //elementWidth;
 }
 
 void Model::GameBoardModel::SetElementHeight(int h)
@@ -72,7 +75,7 @@ void Model::GameBoardModel::SetElementHeight(int h)
 
 int Model::GameBoardModel::GetElementHeight() const
 {
-	return elementHeight;
+	return 36; //elementHeight;
 }
 
 void Model::GameBoardModel::SetBoardWidth(int w)
@@ -82,7 +85,7 @@ void Model::GameBoardModel::SetBoardWidth(int w)
 
 int Model::GameBoardModel::GetBoardWidth() const
 {
-	return boardWidth;
+	return 8; //boardWidth;
 }
 
 void Model::GameBoardModel::SetBoardHeight(int h)
@@ -92,7 +95,37 @@ void Model::GameBoardModel::SetBoardHeight(int h)
 
 int Model::GameBoardModel::GetBoardHeight() const
 {
-	return boardHeight;
+	return 8; //boardHeight;
+}
+
+void Model::GameBoardModel::SetElementOffset(int offs)
+{
+	elementOffset = offs;
+}
+
+int Model::GameBoardModel::GetElementOffset() const
+{
+	return 10; //elementOffset;
+}
+
+void Model::GameBoardModel::SetElementStartPixelX(int x)
+{
+	elementStartPixelX = x;
+}
+
+int Model::GameBoardModel::GetElementStartPixelX() const
+{
+	return 320; //elementStartPixelX;
+}
+
+void Model::GameBoardModel::SetElementStartPixelY(int y)
+{
+	elementStartPixelY = y;
+}
+
+int Model::GameBoardModel::GetElementStartPixelY() const
+{
+	return 100; //elementStartPixelY;
 }
 
 void Model::GameBoardModel::LoadElementImages(map<ElementType, string>& imgs)
@@ -109,4 +142,14 @@ void Model::GameBoardModel::UnloadElementImages()
 {
 	for(map<ElementType, SDL_Surface*>::iterator it = elementImages.begin(); it!= elementImages.end(); ++it)
 			SDL_FreeSurface(it->second);
+}
+
+map<ElementType, SDL_Surface*> Model::GameBoardModel::GetElementImages() const
+{
+	return elementImages;
+}
+
+int Model::GameBoardModel::GetNumElementImages()
+{
+	return elementImages.size();
 }
