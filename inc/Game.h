@@ -30,6 +30,7 @@ public:
 	void MainGameLoop();
 	void SetLevelTime(float& t);
 	void InitGameBoard(int w, int h);
+	void LoadElementImages(map<ElementType, string>& imgs);
 
 private:
 	void RegisterEvent();
