@@ -59,6 +59,7 @@ namespace Model
 		map<ElementType, SDL_Surface*> GetElementImages() const;
 
 		int GetNumElementImages();
+		void ClearElements();
 
 
 	private:

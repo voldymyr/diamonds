@@ -153,3 +153,8 @@ int Model::GameBoardModel::GetNumElementImages()
 {
 	return elementImages.size();
 }
+
+void Model::GameBoardModel::ClearElements()
+{
+	elements.clear();
+}

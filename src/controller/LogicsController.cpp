@@ -217,6 +217,8 @@ void Controller::LogicsController::InitGameBoard(int w, int h)
 
 void Controller::LogicsController::ShuffleElements()
 {
+	gameBoardModel->ClearElements();
+
 	int bWidth = gameBoardModel->GetBoardWidth();
 	int bHeight = gameBoardModel->GetBoardHeight();
 	int elHeight = gameBoardModel->GetElementHeight();
@@ -230,8 +232,6 @@ void Controller::LogicsController::ShuffleElements()
 
 	Model::BoardElement tmpEl;
 	vector<Model::BoardElement> bElements;
-
-	//elements.clear();
 
 	for(int row = 0; row < bHeight; row++)
 	{
