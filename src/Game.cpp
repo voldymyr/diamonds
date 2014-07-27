@@ -43,11 +43,6 @@ void Game::CreateGameWindow(int w, int h, int bpp, Uint32 flags, const char* img
 	gameWindowController->DispatchSetBackgroundImage(img);
 }
 
-void Game::DrawGameWindow()
-{
-	gameWindowController->DispatchDrawBackgroundImage();
-}
-
 void Game::MainGameLoop()
 {
 	Uint32 oldTime = 0, currentTime = 0;
@@ -89,9 +84,11 @@ void Game::MainGameLoop()
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
 
-			this->ProcessGameLogics();
+			this->ProcessGameLogics(window);
 		}
 	}
+
+	SDL_FreeSurface(window);
 }
 
 void Game::SetLevelTime(float& t)
@@ -188,10 +185,8 @@ void Game::UpdateTime(Uint32& old, Uint32& curr)
 	timeLeft -= (curr - old) / 1000.0f;
 }
 
-void Game::ProcessGameLogics()
+void Game::ProcessGameLogics(SDL_Surface*& window)
 {
-	SDL_Surface* window = gameWindowController->GetMainWindow();
-
 	if(logicsController->SwapAllowed())
 	 {
 		if(logicsController->Swap())

@@ -18,9 +18,7 @@ int main(int argc, char** argv)
 	if(!theGame)
 		cout << "Could not create Game!" << endl;
 
-	// Create and draw main window
 	theGame->CreateGameWindow(755, 600, 32, SDL_HWSURFACE, "rc/BackGround.jpg", "Diamonds");
-	//theGame->DrawGameWindow();
 
 	string str1 = "rc/Yellow.png";
 	string str2 = "rc/Green.png";

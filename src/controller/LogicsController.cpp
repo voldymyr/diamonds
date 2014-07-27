@@ -201,6 +201,62 @@ void Controller::LogicsController::CheckMoveValidity()
 		allowSwapBack = true;
 }
 
+bool Controller::LogicsController::ChainValid(int col, int row)
+{
+	int boardWidth = gameBoardModel->GetBoardWidth();
+	int idx = (row * boardWidth) + col;
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+	ElementType firstElType = diamonds[idx].type;
+
+	// One element is already selected
+	int numElsInRow = 1;
+
+	// Check consequent elements to the right from clicked one
+	for(int i = col + 1; i < boardWidth; i++)
+	{
+		if(diamonds[((row * boardWidth) + i)].type == firstElType)
+			numElsInRow++;
+		else
+			break;
+	}
+
+	// Check consequent elements to the left from clicked one
+	for(int i = col - 1; i >= 0; i--)
+	{
+		if(diamonds[(row * boardWidth) + i].type == firstElType)
+			numElsInRow++;
+		else
+			break;
+	}
+
+	if(numElsInRow >= 3)
+		return true;
+
+	// One element is already selected
+	int numElsInCol = 1;
+	int boardHeight = gameBoardModel->GetBoardHeight();
+
+	// Check consequent elements upward from clicked one
+	for(int i = row + 1; i < boardHeight; i++)
+	{
+		if(diamonds[(i * boardWidth) + col].type == firstElType)
+			numElsInCol++;
+		else
+			break;
+	}
+
+	// Check consequent elements downward from clicked one
+	for(int i = row - 1; i >= 0; i--)
+	{
+		if(diamonds[(i * boardWidth) + col].type == firstElType)
+			numElsInCol++;
+		else
+			break;
+	}
+
+	return (numElsInCol >= 3) ? true : false;
+}
+
 void Controller::LogicsController::DispatchDrawElements(SDL_Surface*& window)
 {
 	map<ElementType, SDL_Surface*> images = gameBoardModel->GetElementImages();

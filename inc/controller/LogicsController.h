@@ -51,6 +51,7 @@ namespace Controller
 		int IsElementClicked(float x, float y);
 		bool PairSelected(int id);
 		void CheckMoveValidity();
+		bool ChainValid(int col, int row);
 
 	private:
 		View::GameBoardView* gameBoardView;

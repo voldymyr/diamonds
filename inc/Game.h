@@ -26,7 +26,6 @@ public:
 	Game();
 	~Game();
 	void CreateGameWindow(int w, int h, int bpp, Uint32 flags, const char* img, const char* title);
-	void DrawGameWindow();
 	void MainGameLoop();
 	void SetLevelTime(float& t);
 	void InitGameBoard(int w, int h);
@@ -43,7 +42,7 @@ private:
 	bool HandleQuitEvent();
 	void ResetGame();
 	void UpdateTime(Uint32& old, Uint32& curr);
-	void ProcessGameLogics();
+	void ProcessGameLogics(SDL_Surface*& window);
 
 private:
 	GameEngine* gameEngine;
