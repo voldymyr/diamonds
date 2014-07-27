@@ -63,7 +63,7 @@ namespace Controller
 		bool allowDropNew;
 
 		vector<Model::BoardElement> swapPair;
-		vector< vector<int> > movesRegistry;
+		vector< vector<Model::BoardElement> > movesRegistry;
 	};
 }
 

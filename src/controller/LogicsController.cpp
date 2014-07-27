@@ -91,6 +91,74 @@ bool Controller::LogicsController::FindAndRemoveChains()
 
 bool Controller::LogicsController::CheckForMoves()
 {
+	movesRegistry.clear();
+	int boardHeight = gameBoardModel->GetBoardHeight();
+	int boardWidth = gameBoardModel->GetBoardWidth();
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+
+	for(int row = 0; row < boardHeight; row++)
+	{
+		for(int col = 0; col < boardWidth; col++)
+		{
+			Model::BoardElement firstElement = diamonds[(row * boardWidth) + col];
+
+			if(firstElement.type == None)
+				continue;
+
+			if(col < (boardWidth - 1))
+			{
+				Model::BoardElement nextElement = diamonds[(row * boardWidth) + (col + 1)];
+
+				if(nextElement.type == None)
+					continue;
+
+				/* Swap elements in a row */
+				swap(diamonds[(row * boardWidth) + col], diamonds[(row * boardWidth) + (col + 1)]);
+
+				/* Mark elements that form chains */
+				if(ChainValid(col + 1, row) || ChainValid(col, row))
+				{
+					vector<Model::BoardElement> chain;
+					chain.push_back(firstElement);
+					chain.push_back(nextElement);
+					movesRegistry.push_back(chain);
+				}
+
+				/* Swap elements back */
+				swap(diamonds[(row * boardWidth) + col], diamonds[(row * boardWidth) + (col + 1)]);
+			}
+
+			if(row < (boardHeight - 1))
+			{
+				Model::BoardElement nextElement = diamonds[((row + 1) * boardWidth) + col];
+
+				if(nextElement.type == None)
+					continue;
+
+				/* swap elements */
+				swap(diamonds[(row * boardWidth) + col], diamonds[((row + 1) * boardWidth) + col]);
+
+				if(ChainValid(col, row + 1) || ChainValid(col, row))
+				{
+					vector<Model::BoardElement> chain;
+					chain.push_back(firstElement);
+					chain.push_back(nextElement);
+					movesRegistry.push_back(chain);
+				}
+
+				/* Swap elements back */
+				swap(diamonds[(row * boardWidth) + col], diamonds[((row + 1) * boardWidth) + col]);
+			}
+		}
+	}
+
+	if(movesRegistry.empty())
+	{
+		cout << "No moves found!" << endl;
+		return false;
+	}
+
+	cout << "Number of moves: " << movesRegistry.size();
 	return true;
 }
 
@@ -185,12 +253,12 @@ void Controller::LogicsController::CheckMoveValidity()
 {
 	for(unsigned int i = 0; i < movesRegistry.size(); i++)
 	{
-		if((movesRegistry.at(i)[0] == swapPair[0].id) && (movesRegistry.at(i)[1] == swapPair[1].id))
+		if((movesRegistry.at(i)[0].id == swapPair[0].id) && (movesRegistry.at(i)[1].id == swapPair[1].id))
 		{
 			allowSwap = true;
 			break;
 		}
-		else if((movesRegistry.at(i)[0] == swapPair[1].id) && (movesRegistry.at(i)[1] == swapPair[0].id))
+		else if((movesRegistry.at(i)[0].id == swapPair[1].id) && (movesRegistry.at(i)[1].id == swapPair[0].id))
 		{
 			allowSwap = true;
 			break;
