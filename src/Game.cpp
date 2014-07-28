@@ -47,12 +47,12 @@ void Game::MainGameLoop()
 {
 	Uint32 oldTime = 0, currentTime = 0;
 
-	//do
-	//{
-	logicsController->ShuffleElements();
-	//}
-	//while(!logicsController->CheckForMoves());
-	logicsController->CheckForMoves();
+	// Shuffle elements until there are moves available
+	do
+	{
+		logicsController->ShuffleElements();
+	}
+	while(!logicsController->CheckForMoves());
 
 	SDL_Surface* window = gameWindowController->GetMainWindow();
 

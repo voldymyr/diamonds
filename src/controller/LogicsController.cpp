@@ -113,7 +113,13 @@ bool Controller::LogicsController::CheckForMoves()
 					continue;
 
 				/* Swap elements in a row */
+				int id = diamonds[(row * boardWidth) + col].id;
+				diamonds[(row * boardWidth) + col].id = diamonds[(row * boardWidth) + (col + 1)].id;
+				diamonds[(row * boardWidth) + (col + 1)].id = id;
 				swap(diamonds[(row * boardWidth) + col], diamonds[(row * boardWidth) + (col + 1)]);
+
+				/* Copy elements back to model */
+				gameBoardModel->InitBoardElements(diamonds);
 
 				/* Mark elements that form chains */
 				if(ChainValid(col + 1, row) || ChainValid(col, row))
@@ -125,7 +131,13 @@ bool Controller::LogicsController::CheckForMoves()
 				}
 
 				/* Swap elements back */
+				id = diamonds[(row * boardWidth) + col].id;
+				diamonds[(row * boardWidth) + col].id = diamonds[(row * boardWidth) + (col + 1)].id;
+				diamonds[(row * boardWidth) + (col + 1)].id = id;
 				swap(diamonds[(row * boardWidth) + col], diamonds[(row * boardWidth) + (col + 1)]);
+
+				/* Copy elements back to model */
+				gameBoardModel->InitBoardElements(diamonds);
 			}
 
 			if(row < (boardHeight - 1))
@@ -136,7 +148,13 @@ bool Controller::LogicsController::CheckForMoves()
 					continue;
 
 				/* swap elements */
+				int id = diamonds[(row * boardWidth) + col].id;
+				diamonds[(row * boardWidth) + col].id = diamonds[((row + 1) * boardWidth) + col].id;
+				diamonds[((row + 1) * boardWidth) + col].id = id;
 				swap(diamonds[(row * boardWidth) + col], diamonds[((row + 1) * boardWidth) + col]);
+
+				/* Copy elements back to model */
+				gameBoardModel->InitBoardElements(diamonds);
 
 				if(ChainValid(col, row + 1) || ChainValid(col, row))
 				{
@@ -147,7 +165,13 @@ bool Controller::LogicsController::CheckForMoves()
 				}
 
 				/* Swap elements back */
+				id = diamonds[(row * boardWidth) + col].id;
+				diamonds[(row * boardWidth) + col].id = diamonds[((row + 1) * boardWidth) + col].id;
+				diamonds[((row + 1) * boardWidth) + col].id = id;
 				swap(diamonds[(row * boardWidth) + col], diamonds[((row + 1) * boardWidth) + col]);
+
+				/* Copy elements back to model */
+				gameBoardModel->InitBoardElements(diamonds);
 			}
 		}
 	}
@@ -390,6 +414,9 @@ void Controller::LogicsController::ShuffleElements()
 		}
 	}
 	gameBoardModel->InitBoardElements(bElements);
+
+	// Initialize level model as well
+	gameBoardModel->InitLevelModel(bElements);
 }
 
 void Controller::LogicsController::LoadElementImages(map<ElementType, string>& imgs)
