@@ -28,10 +28,10 @@ namespace Controller
 		bool DropNewAllowed() const;
 		void SetDropNewAllowed(bool status);
 
-		bool Swap();
-		bool SwapBack();
-		bool MoveDown();
-		bool DropNew();
+		bool Swap(float move);
+		bool SwapBack(float move);
+		bool MoveDown(float move);
+		bool DropNew(float move);
 
 		bool FindAndRemoveChains();
 		bool CheckForMoves();

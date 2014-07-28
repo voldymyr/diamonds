@@ -46,6 +46,7 @@ void Game::CreateGameWindow(int w, int h, int bpp, Uint32 flags, const char* img
 void Game::MainGameLoop()
 {
 	Uint32 oldTime = 0, currentTime = 0;
+	float move = 0.0;
 
 	// Shuffle elements until there are moves available
 	do
@@ -56,9 +57,11 @@ void Game::MainGameLoop()
 
 	SDL_Surface* window = gameWindowController->GetMainWindow();
 
+	// Draw background and elements
 	gameWindowController->DispatchDrawBackgroundImage();
 	logicsController->DispatchDrawElements(window);
 
+	// Update window with new information
 	gameWindowController->DispatchUpdateWindow();
 
 	currentTime = SDL_GetTicks();
@@ -90,7 +93,8 @@ void Game::MainGameLoop()
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
 
-			this->ProcessGameLogics(window);
+			// move = logicsController->CalculateMove(oldTime, currentTime);
+			this->ProcessGameLogics(window, move);
 		}
 	}
 
@@ -191,11 +195,11 @@ void Game::UpdateTime(Uint32& old, Uint32& curr)
 	timeLeft -= (curr - old) / 1000.0f;
 }
 
-void Game::ProcessGameLogics(SDL_Surface*& window)
+void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 {
 	if(logicsController->SwapAllowed())
 	 {
-		if(logicsController->Swap())
+		if(logicsController->Swap(move))
 		{
 			logicsController->SetSwapAllowed(false);
 			logicsController->SetMoveDownAllowed(true);
@@ -205,7 +209,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window)
 	 }
 	 else if(logicsController->SwapBackAllowed())
 	 {
-		 if(logicsController->SwapBack())
+		 if(logicsController->SwapBack(move))
 		 {
 			 logicsController->SetSwapBackAllowed(false);
 			 gameWindowController->SetUserInteractionStatus(true);
@@ -215,7 +219,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window)
 	 }
 	 else if(logicsController->MoveDownAllowed())
 	 {
-		 if(logicsController->MoveDown())
+		 if(logicsController->MoveDown(move))
 		 {
 			 logicsController->SetMoveDownAllowed(false);
 			 logicsController->SetDropNewAllowed(true);
@@ -225,7 +229,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window)
 	 }
 	 else if(logicsController->DropNewAllowed())
 	 {
-		 if(logicsController->DropNew())
+		 if(logicsController->DropNew(move))
 		 {
 			 logicsController->SetDropNewAllowed(false);
 			 if(logicsController->FindAndRemoveChains())

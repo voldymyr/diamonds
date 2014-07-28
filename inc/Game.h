@@ -42,7 +42,7 @@ private:
 	bool HandleQuitEvent();
 	void ResetGame();
 	void UpdateTime(Uint32& old, Uint32& curr);
-	void ProcessGameLogics(SDL_Surface*& window);
+	void ProcessGameLogics(SDL_Surface*& window, float move);
 
 private:
 	GameEngine* gameEngine;

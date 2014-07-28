@@ -64,22 +64,22 @@ void Controller::LogicsController::SetDropNewAllowed(bool status)
 	allowDropNew = status;
 }
 
-bool Controller::LogicsController::Swap()
+bool Controller::LogicsController::Swap(float move)
 {
 	return true;
 }
 
-bool Controller::LogicsController::SwapBack()
+bool Controller::LogicsController::SwapBack(float move)
 {
 	return true;
 }
 
-bool Controller::LogicsController::MoveDown()
+bool Controller::LogicsController::MoveDown(float move)
 {
 	return true;
 }
 
-bool Controller::LogicsController::DropNew()
+bool Controller::LogicsController::DropNew(float move)
 {
 	return true;
 }
