@@ -93,7 +93,7 @@ void Game::MainGameLoop()
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
 
-			// move = logicsController->CalculateMove(oldTime, currentTime);
+			move = logicsController->CalculateMovePoints(oldTime, currentTime);
 			this->ProcessGameLogics(window, move);
 		}
 	}
@@ -205,6 +205,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 			logicsController->SetMoveDownAllowed(true);
 		}
 
+		cout << "Call Draw" << endl;
 		logicsController->DispatchDrawElements(window);
 	 }
 	 else if(logicsController->SwapBackAllowed())

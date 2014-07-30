@@ -46,6 +46,7 @@ namespace Controller
 		void SetElementDimensions(int x, int y);
 		void SetElementOffset(int offs);
 		void SetElementsStartPixelsXY(int x, int y);
+		float CalculateMovePoints(Uint32 old, Uint32 curr);
 
 	private:
 		int IsElementClicked(float x, float y);

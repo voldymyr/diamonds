@@ -55,7 +55,7 @@ Model::BoardElement Model::GameBoardModel::GetBoardElementByID(int id) const
 
 void Model::GameBoardModel::SetBoardElementByID(int id, BoardElement el)
 {
-	elements.at(id) = el;
+	elements[id] = el;
 }
 
 void Model::GameBoardModel::SetElementWidth(int w)

@@ -66,6 +66,57 @@ void Controller::LogicsController::SetDropNewAllowed(bool status)
 
 bool Controller::LogicsController::Swap(float move)
 {
+	Model::BoardElement lvlElement0 = gameBoardModel->GetLevelModelElementByID(swapPair[0].id);
+	Model::BoardElement lvlElement1 = gameBoardModel->GetLevelModelElementByID(swapPair[1].id);
+	Model::BoardElement element0 = gameBoardModel->GetBoardElementByID(swapPair[0].id);
+	Model::BoardElement element1 = gameBoardModel->GetBoardElementByID(swapPair[1].id);
+
+	// If elements are on the same x axis, move them vertically on y axis
+	if(swapPair[0].pos.x == swapPair[1].pos.x)
+	{
+		if(swapPair[0].pos.y > swapPair[1].pos.y)
+		{
+			if(element0.pos.y > lvlElement1.pos.y)
+			{
+				element0.pos.y -= move;
+				element1.pos.y += move;
+				gameBoardModel->SetBoardElementByID(element0.id, element0);
+				gameBoardModel->SetBoardElementByID(element1.id, element1);
+				//cout << "Pos" << element0.pos.y << endl;
+
+				cout << "I am here" << endl;
+
+				if(element0.pos.y < lvlElement1.pos.y)
+				{
+					cout << "Done Swapping!" << endl;
+					// swap
+					element0.pos.y = lvlElement0.pos.y;
+					element1.pos.y = lvlElement1.pos.y;
+
+					element0.id = lvlElement1.id;
+					element1.id = lvlElement0.id;
+
+					gameBoardModel->SetBoardElementByID(swapPair[0].id, element0);
+					gameBoardModel->SetBoardElementByID(swapPair[1].id, element1);
+
+					return true;
+				}
+
+				return false;
+			}
+			else
+				return true;
+		}
+		else
+		{
+
+		}
+	}
+	else if(swapPair[0].pos.y == swapPair[1].pos.y) // if elements are on same y axis, move them horizontally
+	{
+
+	}
+
 	return true;
 }
 
@@ -445,4 +496,10 @@ void Controller::LogicsController::SetElementsStartPixelsXY(int x, int y)
 {
 	gameBoardModel->SetElementStartPixelX(x);
 	gameBoardModel->SetElementStartPixelY(y);
+}
+
+float Controller::LogicsController::CalculateMovePoints(Uint32 old, Uint32 curr)
+{
+	float move = ((curr - old) / 1000.0f) * 200.0f;
+	return move;
 }
