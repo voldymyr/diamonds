@@ -20,6 +20,7 @@ void View::GameBoardView::DrawElements(SDL_Surface*& window, map<ElementType, SD
 {
 	for(unsigned int i = 0; i < elements.size(); i++)
 	{
-		SDL_BlitSurface(imgs[elements[i].type], NULL, window, &elements[i].pos);
+		if(SDL_BlitSurface(imgs[elements[i].type], NULL, window, &elements[i].pos) < 0)
+			cout << "Could not blitSurface!" << endl;
 	}
 }

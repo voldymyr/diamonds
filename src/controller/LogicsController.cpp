@@ -76,19 +76,15 @@ bool Controller::LogicsController::Swap(float move)
 	{
 		if(swapPair[0].pos.y > swapPair[1].pos.y)
 		{
-			if(element0.pos.y > lvlElement1.pos.y)
+			if(element0.pos.y >= lvlElement1.pos.y)
 			{
-				element0.pos.y -= move;
-				element1.pos.y += move;
+				element0.pos.y -= move;	//move
+				element1.pos.y += move;	//move
 				gameBoardModel->SetBoardElementByID(element0.id, element0);
 				gameBoardModel->SetBoardElementByID(element1.id, element1);
-				//cout << "Pos" << element0.pos.y << endl;
 
-				cout << "I am here" << endl;
-
-				if(element0.pos.y < lvlElement1.pos.y)
+				if(element0.pos.y <= lvlElement1.pos.y)
 				{
-					cout << "Done Swapping!" << endl;
 					// swap
 					element0.pos.y = lvlElement0.pos.y;
 					element1.pos.y = lvlElement1.pos.y;
