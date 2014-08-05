@@ -105,15 +105,96 @@ bool Controller::LogicsController::Swap(float move)
 		}
 		else
 		{
+			if(element0.pos.y <= lvlElement1.pos.y)
+			{
+				element0.pos.y += move;
+				element1.pos.y -= move;
+				gameBoardModel->SetBoardElementByID(element0.id, element0);
+				gameBoardModel->SetBoardElementByID(element1.id, element1);
 
+				if(element0.pos.y >= lvlElement1.pos.y)
+				{
+					// swap
+					element0.pos.y = lvlElement1.pos.y;
+					element1.pos.y = lvlElement0.pos.y;
+
+					element0.id = lvlElement1.id;
+					element1.id = lvlElement0.id;
+
+					gameBoardModel->SetBoardElementByID(lvlElement0.id, element1);
+					gameBoardModel->SetBoardElementByID(lvlElement1.id, element0);
+
+					return true;
+				}
+
+				return false;
+			}
+			else
+				return true;
 		}
 	}
 	else if(swapPair[0].pos.y == swapPair[1].pos.y) // if elements are on same y axis, move them horizontally
 	{
+		if(swapPair[0].pos.x > swapPair[1].pos.x)
+		{
+			if(element0.pos.x >= lvlElement1.pos.x)
+			{
+				element0.pos.x -= move;
+				element1.pos.x += move;
+				gameBoardModel->SetBoardElementByID(element0.id, element0);
+				gameBoardModel->SetBoardElementByID(element1.id, element1);
 
+				if(element0.pos.x <= lvlElement1.pos.x)
+				{
+					// swap
+					element0.pos.x = lvlElement1.pos.x;
+					element1.pos.x = lvlElement0.pos.x;
+
+					element0.id = lvlElement1.id;
+					element1.id = lvlElement0.id;
+
+					gameBoardModel->SetBoardElementByID(lvlElement0.id, element1);
+					gameBoardModel->SetBoardElementByID(lvlElement1.id, element0);
+
+					return true;
+				}
+
+				return false;
+			}
+			else
+				return true;
+		}
+		else
+		{
+			if(element0.pos.x <= lvlElement1.pos.x)
+			{
+				element0.pos.x += move;
+				element1.pos.x -= move;
+				gameBoardModel->SetBoardElementByID(element0.id, element0);
+				gameBoardModel->SetBoardElementByID(element1.id, element1);
+
+				if(element0.pos.x >= lvlElement1.pos.x)
+				{
+					// swap
+					element0.pos.x = lvlElement1.pos.x;
+					element1.pos.x = lvlElement0.pos.x;
+
+					element0.id = lvlElement1.id;
+					element1.id = lvlElement0.id;
+
+					gameBoardModel->SetBoardElementByID(lvlElement0.id, element1);
+					gameBoardModel->SetBoardElementByID(lvlElement1.id, element0);
+
+					return true;
+				}
+
+				return false;
+			}
+			else
+				return true;
+		}
 	}
 
-	return true;
 }
 
 bool Controller::LogicsController::SwapBack(float move)
