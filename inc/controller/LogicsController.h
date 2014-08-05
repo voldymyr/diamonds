@@ -66,6 +66,8 @@ namespace Controller
 
 		bool swapBackDone;
 
+		float move;
+
 		vector<Model::BoardElement> swapPair;
 		vector< vector<Model::BoardElement> > movesRegistry;
 	};
