@@ -47,6 +47,7 @@ namespace Controller
 		void SetElementOffset(int offs);
 		void SetElementsStartPixelsXY(int x, int y);
 		float CalculateMovePoints(Uint32 old, Uint32 curr);
+		void ClearSwapPair();
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -62,6 +63,8 @@ namespace Controller
 		bool allowSwapBack;
 		bool allowMoveDown;
 		bool allowDropNew;
+
+		bool swapBackDone;
 
 		vector<Model::BoardElement> swapPair;
 		vector< vector<Model::BoardElement> > movesRegistry;

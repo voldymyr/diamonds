@@ -76,12 +76,6 @@ bool Controller::LogicsController::Swap(float move)
 	{
 		if(swapPair[0].pos.y > swapPair[1].pos.y)
 		{
-			if(element0.pos.y >= lvlElement1.pos.y)
-			{
-				element0.pos.y -= move;
-				element1.pos.y += move;
-				gameBoardModel->SetBoardElementByID(element0.id, element0);
-				gameBoardModel->SetBoardElementByID(element1.id, element1);
 
 				if(element0.pos.y <= lvlElement1.pos.y)
 				{
@@ -97,21 +91,19 @@ bool Controller::LogicsController::Swap(float move)
 
 					return true;
 				}
+				else
+				{
+					element0.pos.y -= move;
+					element1.pos.y += move;
+					gameBoardModel->SetBoardElementByID(element0.id, element0);
+					gameBoardModel->SetBoardElementByID(element1.id, element1);
 
-				return false;
-			}
-			else
-				return true;
+					return false;
+				}
+
 		}
-		else
+		else if(swapPair[0].pos.y < swapPair[1].pos.y)
 		{
-			if(element0.pos.y <= lvlElement1.pos.y)
-			{
-				element0.pos.y += move;
-				element1.pos.y -= move;
-				gameBoardModel->SetBoardElementByID(element0.id, element0);
-				gameBoardModel->SetBoardElementByID(element1.id, element1);
-
 				if(element0.pos.y >= lvlElement1.pos.y)
 				{
 					// swap
@@ -126,18 +118,23 @@ bool Controller::LogicsController::Swap(float move)
 
 					return true;
 				}
+				else
+				{
+					element0.pos.y += move;
+					element1.pos.y -= move;
+					gameBoardModel->SetBoardElementByID(element0.id, element0);
+					gameBoardModel->SetBoardElementByID(element1.id, element1);
 
-				return false;
-			}
-			else
-				return true;
+					return false;
+				}
+
 		}
 	}
 	else if(swapPair[0].pos.y == swapPair[1].pos.y) // if elements are on same y axis, move them horizontally
 	{
 		if(swapPair[0].pos.x > swapPair[1].pos.x)
 		{
-			if(element0.pos.x >= lvlElement1.pos.x)
+			if(element0.pos.x > lvlElement1.pos.x)
 			{
 				element0.pos.x -= move;
 				element1.pos.x += move;
@@ -166,7 +163,7 @@ bool Controller::LogicsController::Swap(float move)
 		}
 		else
 		{
-			if(element0.pos.x <= lvlElement1.pos.x)
+			if(element0.pos.x < lvlElement1.pos.x)
 			{
 				element0.pos.x += move;
 				element1.pos.x -= move;
@@ -199,7 +196,18 @@ bool Controller::LogicsController::Swap(float move)
 
 bool Controller::LogicsController::SwapBack(float move)
 {
-	return true;
+	if(Swap(move))
+	{
+		if(swapBackDone)
+		{
+			swapBackDone = false;
+			return true;
+		}
+		else
+			swapBackDone = true;
+	}
+
+	return false;
 }
 
 bool Controller::LogicsController::MoveDown(float move)
@@ -579,4 +587,9 @@ float Controller::LogicsController::CalculateMovePoints(Uint32 old, Uint32 curr)
 {
 	float move = ((curr - old) / 1000.0f) * 200.0f;
 	return move;
+}
+
+void Controller::LogicsController::ClearSwapPair()
+{
+	swapPair.clear();
 }

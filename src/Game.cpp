@@ -57,22 +57,12 @@ void Game::MainGameLoop()
 
 	SDL_Surface* window = gameWindowController->GetMainWindow();
 
-	// Draw background and elements
-	//gameWindowController->DispatchDrawBackgroundImage();
-	//logicsController->DispatchDrawElements(window);
-
-	// Update window with new information
-	//gameWindowController->DispatchUpdateWindow();
-
 	currentTime = SDL_GetTicks();
 	while(!bQuit)
 	{
-
+		// Draw background and elements
 		gameWindowController->DispatchDrawBackgroundImage();
 		logicsController->DispatchDrawElements(window);
-
-		// Update window with new information
-		gameWindowController->DispatchUpdateWindow();
 
 		this->RegisterEvent();
 
@@ -212,6 +202,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 		{
 			logicsController->SetSwapAllowed(false);
 			logicsController->SetMoveDownAllowed(true);
+			logicsController->ClearSwapPair();
 		}
 
 		logicsController->DispatchDrawElements(window);
@@ -222,6 +213,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 		 {
 			 logicsController->SetSwapBackAllowed(false);
 			 gameWindowController->SetUserInteractionStatus(true);
+			 logicsController->ClearSwapPair();
 		 }
 
 		 logicsController->DispatchDrawElements(window);
@@ -254,5 +246,5 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 		 logicsController->DispatchDrawElements(window);
 	 }
 
-	SDL_FreeSurface(window);
+	//SDL_FreeSurface(window);
 }
