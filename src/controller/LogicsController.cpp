@@ -78,22 +78,22 @@ bool Controller::LogicsController::Swap(float move)
 		{
 			if(element0.pos.y >= lvlElement1.pos.y)
 			{
-				element0.pos.y -= move;	//move
-				element1.pos.y += move;	//move
+				element0.pos.y -= move;
+				element1.pos.y += move;
 				gameBoardModel->SetBoardElementByID(element0.id, element0);
 				gameBoardModel->SetBoardElementByID(element1.id, element1);
 
 				if(element0.pos.y <= lvlElement1.pos.y)
 				{
 					// swap
-					element0.pos.y = lvlElement0.pos.y;
-					element1.pos.y = lvlElement1.pos.y;
+					element0.pos.y = lvlElement1.pos.y;
+					element1.pos.y = lvlElement0.pos.y;
 
 					element0.id = lvlElement1.id;
 					element1.id = lvlElement0.id;
 
-					gameBoardModel->SetBoardElementByID(swapPair[0].id, element0);
-					gameBoardModel->SetBoardElementByID(swapPair[1].id, element1);
+					gameBoardModel->SetBoardElementByID(lvlElement0.id, element1);
+					gameBoardModel->SetBoardElementByID(lvlElement1.id, element0);
 
 					return true;
 				}
