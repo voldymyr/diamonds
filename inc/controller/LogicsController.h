@@ -50,6 +50,7 @@ namespace Controller
 		void ClearSwapPair();
 		void FindChainsForSwapPair();
 		void RemoveChainsFromBoard();
+		void CountMoveSteps();
 
 	private:
 		int IsElementClicked(float x, float y);

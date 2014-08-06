@@ -203,7 +203,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 			logicsController->FindChainsForSwapPair();
 			// logicsController->CalculateScore();
 			logicsController->RemoveChainsFromBoard();
-			// logicsController->FindEmptySpaces();
+			logicsController->CountMoveSteps();
 			logicsController->SetSwapAllowed(false);
 			logicsController->SetMoveDownAllowed(true);
 			logicsController->ClearSwapPair();

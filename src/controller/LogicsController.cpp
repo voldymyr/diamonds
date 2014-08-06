@@ -687,3 +687,8 @@ void Controller::LogicsController::RemoveChainsFromBoard()
 
 	gameBoardModel->InitBoardElements(diamonds);
 }
+
+void Controller::LogicsController::CountMoveSteps()
+{
+
+}
