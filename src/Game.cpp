@@ -184,6 +184,15 @@ bool Game::HandleQuitEvent()
 void Game::ResetGame()
 {
 	timeLeft = allowedLevelTime;
+	noMoreMoves = false;
+
+	// Shuffle elements until there are moves available
+	do
+	{
+		logicsController->ShuffleElements();
+	}
+	while(!logicsController->CheckForMoves());
+
 	gameWindowController->SetUserInteractionStatus(true);
 }
 

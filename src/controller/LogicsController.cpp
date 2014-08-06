@@ -311,12 +311,8 @@ bool Controller::LogicsController::CheckForMoves()
 	}
 
 	if(movesRegistry.empty())
-	{
-		cout << "No moves found!" << endl;
 		return false;
-	}
 
-	cout << "Number of moves: " << movesRegistry.size();
 	return true;
 }
 
