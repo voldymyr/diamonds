@@ -48,6 +48,8 @@ namespace Controller
 		void SetElementsStartPixelsXY(int x, int y);
 		float CalculateMovePoints(Uint32 old, Uint32 curr);
 		void ClearSwapPair();
+		void FindChainsForSwapPair();
+		void RemoveChainsFromBoard();
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -67,6 +69,8 @@ namespace Controller
 		bool swapBackDone;
 
 		float move;
+
+		vector<vector<Model::BoardElement> > chains;
 
 		vector<Model::BoardElement> swapPair;
 		vector< vector<Model::BoardElement> > movesRegistry;

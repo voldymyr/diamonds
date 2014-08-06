@@ -590,3 +590,100 @@ void Controller::LogicsController::ClearSwapPair()
 {
 	swapPair.clear();
 }
+
+void Controller::LogicsController::FindChainsForSwapPair()
+{
+	chains.clear();
+	vector<Model::BoardElement> elementsInChain;
+
+	int bWidth = gameBoardModel->GetBoardWidth();
+	int bHeight = gameBoardModel->GetBoardHeight();
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+
+	/* There are two elements that have been swapped */
+	for(int i = 0; i < 2; i++)
+	{
+		/* Identify row and col of current element */
+		int col = swapPair.at(i).id % bWidth;
+		int row = swapPair.at(i).id / bHeight;
+
+		Model::BoardElement swappedEl = diamonds[((row * bWidth) + col)];
+		elementsInChain.push_back(swappedEl);
+
+		/* Check consequent elements to the right */
+		for(int j = col + 1; j < bWidth; j++)
+		{
+			if(diamonds[((row * bWidth) + j)].type == swappedEl.type)
+				elementsInChain.push_back(diamonds[((row * bWidth) + j)]);
+			else
+				break;
+		}
+
+		/* Check consequent elements to the left */
+		for(int k = col - 1; k >= 0; k--)
+		{
+			if(diamonds[(row * bWidth) + k].type == swappedEl.type)
+				elementsInChain.push_back(diamonds[((row * bWidth) + k)]);
+			else
+				break;
+		}
+
+		if(elementsInChain.size() >= 3)
+		{
+			chains.push_back(elementsInChain);
+
+			elementsInChain.clear();
+			elementsInChain.push_back(swappedEl);
+		}
+		else
+		{
+			elementsInChain.clear();
+			elementsInChain.push_back(swappedEl);
+		}
+
+
+		/* Check consequent elements upward */
+		for(int jj = row + 1; jj < bHeight; jj++)
+		{
+			if(diamonds[(jj * bHeight) + col].type == swappedEl.type)
+				elementsInChain.push_back(diamonds[(jj * bHeight) + col]);
+			else
+				break;
+		}
+
+		/* Check consequent elements downward */
+		for(int kk = row - 1; kk >= 0; kk--)
+		{
+			if(diamonds[(kk * bHeight) + col].type == swappedEl.type)
+				elementsInChain.push_back(diamonds[(kk * bHeight) + col]);
+			else
+				break;
+		}
+
+		if(elementsInChain.size() >= 3)
+		{
+			chains.push_back(elementsInChain);
+
+			elementsInChain.clear();
+		}
+		else
+			elementsInChain.clear();
+	}
+
+}
+
+void Controller::LogicsController::RemoveChainsFromBoard()
+{
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+
+	for(int i = 0; i < chains.size(); i++)
+	{
+		for(int j = 0; j < chains.at(i).size(); j++)
+		{
+			diamonds[chains.at(i).at(j).id].type = None;
+			diamonds[chains.at(i).at(j).id].value = None;
+		}
+	}
+
+	gameBoardModel->InitBoardElements(diamonds);
+}
