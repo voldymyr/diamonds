@@ -702,43 +702,45 @@ void Controller::LogicsController::CountMoveSteps()
 			 * of same type are there in a row or/and column */
 			if(diamonds[(row * bWidth) + col].type == None)
 			{
-				/* See if you can check the element below */
-				if(((((row + 1) * bWidth) + col) <= ((bWidth * bHeight) - 1)))
+				/* See if you can check elements below for type None */
+				for(int i = 1; i < bHeight; i++)
 				{
-					/* Check if the type of this element is also None */
-					if(diamonds[(((row + 1) * boardWidth) + col)].type == None)
+					if(((((row + i) * bWidth) + col) <= ((bWidth * bHeight) - 1)))
 					{
-						/* Skip this element as it has already been counted */
-						continue;
+						/* Check if the type of this element is also None */
+						if(diamonds[(((row + 1) * bWidth) + col)].type == None)
+						{
+							/* Skip this element as it has already been counted */
+							continue;
+						}
 					}
 				}
 
 				numElsTOMove++;
 
 				/* Go up in rows until there are elements of type None */
-				for(int i = 1; i < boardHeight; i++)
+				for(int i = 1; i < bHeight; i++)
 				{
 					/* Make sure we do not go beyond upper boundary */
 					if((row - i) >= 0)
 					{
 						/* Check how many elements above are of type None */
-						if(diamonds[((row - i) * boardWidth) + col].type == None)
+						if(diamonds[((row - i) * bWidth) + col].type == None)
 						{
 							// Save IDs of empty elements
 							numElsTOMove++;
 						}
 						else
 						{
-							elementFallStart.push_back(diamonds[((row - i) * boardWidth) + col].id);
+							elementFallStart.push_back(diamonds[((row - i) * bWidth) + col].id);
 							break;
 						}
 					}
 				}
 			}
+
 			if(numElsTOMove > 0)
-			{
 				numElementsToMove.push_back(numElsTOMove);
-			}
 
 			numElsTOMove = 0;
 		}
