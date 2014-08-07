@@ -672,9 +672,9 @@ void Controller::LogicsController::RemoveChainsFromBoard()
 {
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 
-	for(int i = 0; i < chains.size(); i++)
+	for(unsigned int i = 0; i < chains.size(); i++)
 	{
-		for(int j = 0; j < chains.at(i).size(); j++)
+		for(unsigned int j = 0; j < chains.at(i).size(); j++)
 		{
 			diamonds[chains.at(i).at(j).id].type = None;
 			diamonds[chains.at(i).at(j).id].value = None;
@@ -686,5 +686,62 @@ void Controller::LogicsController::RemoveChainsFromBoard()
 
 void Controller::LogicsController::CountMoveSteps()
 {
+	srcElementID.clear();
+	dstElementID.clear();
+
+	int bWidth = gameBoardModel->GetBoardWidth();
+	int bHeight = gameBoardModel->GetBoardHeight();
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+
+	/* Loop through the whole board of elements starting at the bottom right */
+	for(int row = bHeight - 1; row >= 0; row--)
+	{
+		for(int col = bWidth - 1; col >= 0; col--)
+		{
+			/* Find element of type None and check how many elements
+			 * of same type are there in a row or/and column */
+			if(diamonds[(row * bWidth) + col].type == None)
+			{
+				/* See if you can check the element below */
+				if(((((row + 1) * bWidth) + col) <= ((bWidth * bHeight) - 1)))
+				{
+					/* Check if the type of this element is also None */
+					if(diamonds[(((row + 1) * boardWidth) + col)].type == None)
+					{
+						/* Skip this element as it has already been counted */
+						continue;
+					}
+				}
+
+				numElsTOMove++;
+
+				/* Go up in rows until there are elements of type None */
+				for(int i = 1; i < boardHeight; i++)
+				{
+					/* Make sure we do not go beyond upper boundary */
+					if((row - i) >= 0)
+					{
+						/* Check how many elements above are of type None */
+						if(diamonds[((row - i) * boardWidth) + col].type == None)
+						{
+							// Save IDs of empty elements
+							numElsTOMove++;
+						}
+						else
+						{
+							elementFallStart.push_back(diamonds[((row - i) * boardWidth) + col].id);
+							break;
+						}
+					}
+				}
+			}
+			if(numElsTOMove > 0)
+			{
+				numElementsToMove.push_back(numElsTOMove);
+			}
+
+			numElsTOMove = 0;
+		}
+	}
 
 }

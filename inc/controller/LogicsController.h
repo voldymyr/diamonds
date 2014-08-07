@@ -73,6 +73,12 @@ namespace Controller
 
 		vector<vector<Model::BoardElement> > chains;
 
+		// ID of element on the board that will move down
+		vector<int> srcElementID;
+
+		// ID of element that srcElement should move to
+		vector<int> dstElementID;
+
 		vector<Model::BoardElement> swapPair;
 		vector< vector<Model::BoardElement> > movesRegistry;
 	};
