@@ -704,16 +704,25 @@ void Controller::LogicsController::CountMoveSteps()
 			 * of same type are there in a row or/and column */
 			if(diamonds[(row * bWidth) + col].type == None)
 			{
+				bool bSkip = false;
 				/* See if you can check elements below for type None */
-				if(((((row + 1) * bWidth) + col) <= ((bWidth * bHeight) - 1)))
+				for(int i = 1; i < bHeight; i++)
 				{
-					/* If None then we skip */
-					if(diamonds[(((row + 1) * bWidth) + col)].type == None)
+					if(((((row + i) * bWidth) + col) <= ((bWidth * bHeight) - 1)))
 					{
-						/* Skip this element as it has already been counted */
-						continue;
+						/* If None then we skip */
+						if(diamonds[(((row + i) * bWidth) + col)].type == None)
+						{
+							bSkip = true;
+							break;
+						}
 					}
+					else
+						break;
 				}
+
+				if(bSkip)
+					continue;
 
 				moveSteps++;
 
@@ -731,7 +740,7 @@ void Controller::LogicsController::CountMoveSteps()
 						break;
 				}
 
-				/* Go up in rows until there are elements of type None */
+				/* Go up in rows */
 				for(int i = 1; i < bHeight; i++)
 				{
 					/* Make sure we do not go beyond upper boundary */
