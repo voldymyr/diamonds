@@ -693,6 +693,8 @@ void Controller::LogicsController::CountMoveSteps()
 	int bHeight = gameBoardModel->GetBoardHeight();
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 
+	int moveSteps = 0;
+
 	/* Loop through the whole board of elements starting at the bottom right */
 	for(int row = bHeight - 1; row >= 0; row--)
 	{
@@ -703,20 +705,31 @@ void Controller::LogicsController::CountMoveSteps()
 			if(diamonds[(row * bWidth) + col].type == None)
 			{
 				/* See if you can check elements below for type None */
+				if(((((row + 1) * bWidth) + col) <= ((bWidth * bHeight) - 1)))
+				{
+					/* If None then we skip */
+					if(diamonds[(((row + 1) * bWidth) + col)].type == None)
+					{
+						/* Skip this element as it has already been counted */
+						continue;
+					}
+				}
+
+				moveSteps++;
+
 				for(int i = 1; i < bHeight; i++)
 				{
 					if(((((row + i) * bWidth) + col) <= ((bWidth * bHeight) - 1)))
 					{
 						/* Check if the type of this element is also None */
-						if(diamonds[(((row + 1) * bWidth) + col)].type == None)
+						if(diamonds[(((row + i) * bWidth) + col)].type == None)
 						{
-							/* Skip this element as it has already been counted */
-							continue;
+							moveSteps++;
 						}
 					}
+					else
+						break;
 				}
-
-				numElsTOMove++;
 
 				/* Go up in rows until there are elements of type None */
 				for(int i = 1; i < bHeight; i++)
@@ -726,23 +739,21 @@ void Controller::LogicsController::CountMoveSteps()
 					{
 						/* Check how many elements above are of type None */
 						if(diamonds[((row - i) * bWidth) + col].type == None)
-						{
-							// Save IDs of empty elements
-							numElsTOMove++;
-						}
+							moveSteps++;
 						else
 						{
-							elementFallStart.push_back(diamonds[((row - i) * bWidth) + col].id);
-							break;
+							srcElementID.push_back(diamonds[((row - i) * bWidth) + col].id);
+							dstElementID.push_back(diamonds[(((row - i) * bWidth) + col) + (moveSteps * bWidth)].id);
 						}
 					}
+					else
+						break;
 				}
 			}
+			else
+				continue;
 
-			if(numElsTOMove > 0)
-				numElementsToMove.push_back(numElsTOMove);
-
-			numElsTOMove = 0;
+			moveSteps = 0;
 		}
 	}
 
