@@ -210,7 +210,34 @@ bool Controller::LogicsController::SwapBack(float move)
 
 bool Controller::LogicsController::MoveDown(float move)
 {
-	return true;
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+	vector<Model::BoardElement> level = gameBoardModel->GetLevelModel();
+
+	unsigned int allMoved = 0;
+
+	for(unsigned int i = 0; i < srcElementID.size(); i++)
+	{
+		if(diamonds.at(srcElementID.at(i)).pos.y >= level.at(dstElementID.at(i)).pos.y)
+		{
+			diamonds.at(srcElementID.at(i)).pos.y = level.at(dstElementID.at(i)).pos.y;
+			diamonds.at(srcElementID.at(i)).id = level.at(dstElementID.at(i)).id;
+
+			gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
+			diamonds.at(srcElementID.at(i)).type = None;
+			gameBoardModel->SetBoardElementByID(srcElementID.at(i), diamonds.at(srcElementID.at(i)));
+			allMoved++;
+		}
+		else
+		{
+			diamonds.at(srcElementID.at(i)).pos.y += 1;
+			gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
+		}
+	}
+
+	if(allMoved == srcElementID.size())
+		return true;
+	else
+		return false;
 }
 
 bool Controller::LogicsController::DropNew(float move)
