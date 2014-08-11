@@ -194,6 +194,10 @@ void Game::ResetGame()
 	while(!logicsController->CheckForMoves());
 
 	gameWindowController->SetUserInteractionStatus(true);
+	logicsController->SetSwapAllowed(false);
+	logicsController->SetSwapBackAllowed(false);
+	logicsController->SetMoveDownAllowed(false);
+	logicsController->SetDropNewAllowed(false);
 }
 
 void Game::UpdateTime(Uint32& old, Uint32& curr)

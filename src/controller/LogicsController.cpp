@@ -213,29 +213,38 @@ bool Controller::LogicsController::MoveDown(float move)
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 	vector<Model::BoardElement> level = gameBoardModel->GetLevelModel();
 
-	unsigned int allMoved = 0;
+	static unsigned int allMoved = 0;
 
 	for(unsigned int i = 0; i < srcElementID.size(); i++)
 	{
-		if(diamonds.at(srcElementID.at(i)).pos.y >= level.at(dstElementID.at(i)).pos.y)
+		if(movedDown.at(i) == false)
 		{
-			diamonds.at(srcElementID.at(i)).pos.y = level.at(dstElementID.at(i)).pos.y;
-			diamonds.at(srcElementID.at(i)).id = level.at(dstElementID.at(i)).id;
+			if(diamonds.at(srcElementID.at(i)).pos.y >= level.at(dstElementID.at(i)).pos.y)
+			{
+				diamonds.at(srcElementID.at(i)).pos.y = level.at(dstElementID.at(i)).pos.y;
+				diamonds.at(srcElementID.at(i)).id = level.at(dstElementID.at(i)).id;
 
-			gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
-			diamonds.at(srcElementID.at(i)).type = None;
-			gameBoardModel->SetBoardElementByID(srcElementID.at(i), diamonds.at(srcElementID.at(i)));
-			allMoved++;
-		}
-		else
-		{
-			diamonds.at(srcElementID.at(i)).pos.y += 1;
-			gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
+				gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
+				diamonds.at(srcElementID.at(i)).type = None;
+				gameBoardModel->SetBoardElementByID(srcElementID.at(i), diamonds.at(srcElementID.at(i)));
+				allMoved++;
+				movedDown.at(i) = true;
+			}
+			else
+			{
+				diamonds.at(srcElementID.at(i)).pos.y += 1;
+				gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
+			}
 		}
 	}
 
+	cout << allMoved << endl;
+	// Return true only when all elements have finished moving down
 	if(allMoved == srcElementID.size())
+	{
+		allMoved = 0;
 		return true;
+	}
 	else
 		return false;
 }
@@ -715,6 +724,7 @@ void Controller::LogicsController::CountMoveSteps()
 {
 	srcElementID.clear();
 	dstElementID.clear();
+	movedDown.clear();
 
 	int bWidth = gameBoardModel->GetBoardWidth();
 	int bHeight = gameBoardModel->GetBoardHeight();
@@ -779,6 +789,7 @@ void Controller::LogicsController::CountMoveSteps()
 						else
 						{
 							srcElementID.push_back(diamonds[((row - i) * bWidth) + col].id);
+							movedDown.push_back(false);
 							dstElementID.push_back(diamonds[(((row - i) * bWidth) + col) + (moveSteps * bWidth)].id);
 						}
 					}

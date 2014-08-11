@@ -79,6 +79,9 @@ namespace Controller
 		// ID of element that srcElement should move to
 		vector<int> dstElementID;
 
+		// state of elements that are moving down (moved, not moved)
+		vector<bool> movedDown;
+
 		vector<Model::BoardElement> swapPair;
 		vector< vector<Model::BoardElement> > movesRegistry;
 	};
