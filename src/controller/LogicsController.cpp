@@ -238,7 +238,6 @@ bool Controller::LogicsController::MoveDown(float move)
 		}
 	}
 
-	cout << allMoved << endl;
 	// Return true only when all elements have finished moving down
 	if(allMoved == srcElementID.size())
 	{
@@ -725,6 +724,7 @@ void Controller::LogicsController::CountMoveSteps()
 	srcElementID.clear();
 	dstElementID.clear();
 	movedDown.clear();
+	numNewElements.clear();
 
 	int bWidth = gameBoardModel->GetBoardWidth();
 	int bHeight = gameBoardModel->GetBoardHeight();
@@ -800,8 +800,14 @@ void Controller::LogicsController::CountMoveSteps()
 			else
 				continue;
 
+			numNewElements.insert(make_pair<int, int>(col, moveSteps));
 			moveSteps = 0;
 		}
 	}
+
+}
+
+void Controller::LogicsController::CreateNewElements()
+{
 
 }

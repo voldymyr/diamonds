@@ -241,6 +241,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 		 {
 			 logicsController->SetMoveDownAllowed(false);
 			 logicsController->SetDropNewAllowed(true);
+			 logicsController->CreateNewElements();
 		 }
 
 		 logicsController->DispatchDrawElements(window);

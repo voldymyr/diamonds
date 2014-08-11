@@ -51,6 +51,7 @@ namespace Controller
 		void FindChainsForSwapPair();
 		void RemoveChainsFromBoard();
 		void CountMoveSteps();
+		void CreateNewElements();
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -82,7 +83,12 @@ namespace Controller
 		// state of elements that are moving down (moved, not moved)
 		vector<bool> movedDown;
 
+		// number of new elements to be dropped for each column
+		map<int, int> numNewElements;
+
+		// Pair of elements that are going to be swapped
 		vector<Model::BoardElement> swapPair;
+
 		vector< vector<Model::BoardElement> > movesRegistry;
 	};
 }
