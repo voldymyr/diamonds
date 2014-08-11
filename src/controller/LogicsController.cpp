@@ -724,7 +724,6 @@ void Controller::LogicsController::CountMoveSteps()
 	srcElementID.clear();
 	dstElementID.clear();
 	movedDown.clear();
-	numNewElements.clear();
 
 	int bWidth = gameBoardModel->GetBoardWidth();
 	int bHeight = gameBoardModel->GetBoardHeight();
@@ -800,7 +799,6 @@ void Controller::LogicsController::CountMoveSteps()
 			else
 				continue;
 
-			numNewElements.insert(make_pair<int, int>(col, moveSteps));
 			moveSteps = 0;
 		}
 	}
@@ -809,5 +807,47 @@ void Controller::LogicsController::CountMoveSteps()
 
 void Controller::LogicsController::CreateNewElements()
 {
+	toBeDropped.clear();
+	vector<ElementType> tmpElTypes;
 
+	int bWidth = gameBoardModel->GetBoardWidth();
+	int bHeight = gameBoardModel->GetBoardHeight();
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+
+	for(int row = 0; row < bHeight; row++)
+	{
+		for(int col = 0; col < bWidth; col++)
+		{
+			if(diamonds[(row * bWidth) + col].type == None)
+			{
+				// save element id for later use
+				toBeDropped.push_back(((row * bWidth) + col));
+
+				ElementType tmp;
+
+				// Generate element type and check if 2 previously generated types are not the same
+				do
+				{
+					// Generate element type, but not None
+					do
+					{
+						unsigned int numImages = gameBoardModel->GetNumElementImages();
+						tmp = (ElementType)((rand() % numImages + 1) * 10);
+					}while(tmp == None);
+
+				}while((toBeDropped.size() >= 2) && (tmp == tmpElTypes[(tmpElTypes.size() - 1)]) && (tmp == tmpElTypes[(tmpElTypes.size() - 2)]));
+
+				// Save generated element type and assign it to current element on the game board
+				tmpElTypes.push_back(tmp);
+				diamonds[(row * bWidth) + col].type = tmp;
+				diamonds[(row * bWidth) + col].value = (int)tmp;
+				diamonds[(row * bWidth) + col].pos.y = gameBoardModel->GetDropLineYPos();
+			}
+		}
+	}
+}
+
+void Controller::LogicsController::SetDropLineYPos(int y)
+{
+	gameBoardModel->SetDropLineYPos(y);
 }

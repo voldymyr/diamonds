@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 	theGame->SetElementDimensions(36, 36);
 	theGame->SetElementOffset(10);
 	theGame->SetElementsStartPixelsXY(320, 100);
+	theGame->SetDropLineYPos(40);
 
 	// Set level time
 	float t = 60.0;

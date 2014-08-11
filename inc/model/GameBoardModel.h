@@ -53,6 +53,8 @@ namespace Model
 		int GetElementStartPixelX() const;
 		void SetElementStartPixelY(int y);
 		int GetElementStartPixelY() const;
+		void SetDropLineYPos(int y);
+		int GetDropLineYPos();
 
 		void LoadElementImages(map<ElementType, string>& imgs);
 		void UnloadElementImages();
@@ -71,6 +73,8 @@ namespace Model
 		int elementOffset;
 		int elementStartPixelX;
 		int elementStartPixelY;
+
+		int dropLineY;
 
 		int boardWidth;
 		int boardHeight;

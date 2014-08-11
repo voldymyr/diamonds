@@ -15,6 +15,7 @@ Model::GameBoardModel::GameBoardModel()
 	elementOffset = 0;
 	elementStartPixelX = 0;
 	elementStartPixelY = 0;
+	dropLineY = 0;
 	boardWidth = 0;
 	boardHeight = 0;
 }
@@ -126,6 +127,16 @@ void Model::GameBoardModel::SetElementStartPixelY(int y)
 int Model::GameBoardModel::GetElementStartPixelY() const
 {
 	return elementStartPixelY;
+}
+
+void Model::GameBoardModel::SetDropLineYPos(int y)
+{
+	dropLineY = y;
+}
+
+int Model::GameBoardModel::GetDropLineYPos()
+{
+	return dropLineY;
 }
 
 void Model::GameBoardModel::LoadElementImages(map<ElementType, string>& imgs)

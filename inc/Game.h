@@ -34,6 +34,7 @@ public:
 	void SetElementDimensions(int w, int h);
 	void SetElementOffset(int offs);
 	void SetElementsStartPixelsXY(int x, int y);
+	void SetDropLineYPos(int y);
 
 private:
 	void RegisterEvent();

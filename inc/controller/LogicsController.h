@@ -52,6 +52,7 @@ namespace Controller
 		void RemoveChainsFromBoard();
 		void CountMoveSteps();
 		void CreateNewElements();
+		void SetDropLineYPos(int y);
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -72,6 +73,7 @@ namespace Controller
 
 		float move;
 
+		// this vector holds all chains (3 or more elements in a row or/and column)
 		vector<vector<Model::BoardElement> > chains;
 
 		// ID of element on the board that will move down
@@ -83,12 +85,13 @@ namespace Controller
 		// state of elements that are moving down (moved, not moved)
 		vector<bool> movedDown;
 
-		// number of new elements to be dropped for each column
-		map<int, int> numNewElements;
+		// IDs of elements that should be dropped
+		vector<int> toBeDropped;
 
 		// Pair of elements that are going to be swapped
 		vector<Model::BoardElement> swapPair;
 
+		// all possible moves are stored here
 		vector< vector<Model::BoardElement> > movesRegistry;
 	};
 }

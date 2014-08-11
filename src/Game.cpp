@@ -136,6 +136,11 @@ void Game::SetElementsStartPixelsXY(int x, int y)
 	logicsController->SetElementsStartPixelsXY(x, y);
 }
 
+void Game::SetDropLineYPos(int y)
+{
+	logicsController->SetDropLineYPos(y);
+}
+
 void Game::RegisterEvent()
 {
 	SDL_PollEvent(&event);
