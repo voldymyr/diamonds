@@ -48,6 +48,28 @@ void Game::MainGameLoop()
 	Uint32 oldTime = 0, currentTime = 0;
 	float move = 0.0;
 
+	/*int audio_rate = 22050;
+	Uint16 audio_format = AUDIO_S16SYS;
+	int audio_channels = 2;
+	int audio_buffers = 4096;
+
+	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
+		fprintf(stderr, "Unable to initialize audio: %s\n", Mix_GetError());
+
+	Mix_Chunk *sound = NULL;
+
+	sound = Mix_LoadWAV("rc/bell.wav");
+	if(sound == NULL) {
+		fprintf(stderr, "Unable to load WAV file: %s\n", Mix_GetError());
+	}
+
+	int channel;
+
+	channel = Mix_PlayChannel(-1, sound, 0);
+	if(channel == -1) {
+		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
+	}*/
+
 	// Shuffle elements until there are moves available
 	do
 	{
@@ -60,6 +82,7 @@ void Game::MainGameLoop()
 	currentTime = SDL_GetTicks();
 	while(!bQuit)
 	{
+		//Mix_PlayChannel(-1, sound, 0);
 		// Draw background and elements
 		gameWindowController->DispatchDrawBackgroundImage();
 		logicsController->DispatchDrawElements(window);
