@@ -85,6 +85,9 @@ namespace Controller
 		// state of elements that are moving down (moved, not moved)
 		vector<bool> movedDown;
 
+		// state of elements that are being dropped
+		vector<bool> dropped;
+
 		// IDs of elements that should be dropped
 		vector<int> toBeDropped;
 

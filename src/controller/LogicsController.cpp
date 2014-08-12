@@ -224,9 +224,14 @@ bool Controller::LogicsController::MoveDown(float move)
 				diamonds.at(srcElementID.at(i)).pos.y = level.at(dstElementID.at(i)).pos.y;
 				diamonds.at(srcElementID.at(i)).id = level.at(dstElementID.at(i)).id;
 
-				gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
-				diamonds.at(srcElementID.at(i)).type = None;
+				diamonds.at(dstElementID.at(i)).pos.y = level.at(srcElementID.at(i)).pos.y;
+				diamonds.at(dstElementID.at(i)).id = level.at(srcElementID.at(i)).id;
+
+				swap(diamonds[srcElementID.at(i)], diamonds[dstElementID.at(i)]);
+
 				gameBoardModel->SetBoardElementByID(srcElementID.at(i), diamonds.at(srcElementID.at(i)));
+				gameBoardModel->SetBoardElementByID(dstElementID.at(i), diamonds.at(dstElementID.at(i)));
+
 				allMoved++;
 				movedDown.at(i) = true;
 			}
@@ -250,6 +255,41 @@ bool Controller::LogicsController::MoveDown(float move)
 
 bool Controller::LogicsController::DropNew(float move)
 {
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+	vector<Model::BoardElement> level = gameBoardModel->GetLevelModel();
+
+	static unsigned int allDropped = 0;
+
+	for(unsigned int i = 0; i < toBeDropped.size(); i++)
+	{
+		if(dropped.at(i) == false)
+		{
+			if(diamonds.at(toBeDropped.at(i)).pos.y >= level.at(toBeDropped.at(i)).pos.y)
+			{
+				diamonds.at(toBeDropped.at(i)).pos.y = level.at(toBeDropped.at(i)).pos.y;
+
+				gameBoardModel->SetBoardElementByID(toBeDropped.at(i), diamonds.at(toBeDropped.at(i)));
+				allDropped++;
+				dropped.at(i) = true;
+			}
+			else
+			{
+				diamonds.at(toBeDropped.at(i)).pos.y += 1;
+				gameBoardModel->SetBoardElementByID(toBeDropped.at(i), diamonds.at(toBeDropped.at(i)));
+			}
+		}
+	}
+
+	if(allDropped == toBeDropped.size())
+	{
+		allDropped = 0;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -808,11 +848,13 @@ void Controller::LogicsController::CountMoveSteps()
 void Controller::LogicsController::CreateNewElements()
 {
 	toBeDropped.clear();
+	dropped.clear();
 	vector<ElementType> tmpElTypes;
 
 	int bWidth = gameBoardModel->GetBoardWidth();
 	int bHeight = gameBoardModel->GetBoardHeight();
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+	int yPos = gameBoardModel->GetDropLineYPos();
 
 	for(int row = 0; row < bHeight; row++)
 	{
@@ -822,6 +864,7 @@ void Controller::LogicsController::CreateNewElements()
 			{
 				// save element id for later use
 				toBeDropped.push_back(((row * bWidth) + col));
+				dropped.push_back(false);
 
 				ElementType tmp;
 
@@ -841,10 +884,14 @@ void Controller::LogicsController::CreateNewElements()
 				tmpElTypes.push_back(tmp);
 				diamonds[(row * bWidth) + col].type = tmp;
 				diamonds[(row * bWidth) + col].value = (int)tmp;
-				diamonds[(row * bWidth) + col].pos.y = gameBoardModel->GetDropLineYPos();
+				diamonds[(row * bWidth) + col].pos.y = yPos;
+
+				gameBoardModel->SetBoardElementByID(((row * bWidth) + col), diamonds[(row * bWidth) + col]);
 			}
 		}
 	}
+	tmpElTypes.clear();
+
 }
 
 void Controller::LogicsController::SetDropLineYPos(int y)
