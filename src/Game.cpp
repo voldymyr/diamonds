@@ -257,7 +257,10 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 		 {
 			 logicsController->SetDropNewAllowed(false);
 			 if(logicsController->FindAndRemoveChains())
+			 {
+				 logicsController->CountMoveSteps();
 				 logicsController->SetMoveDownAllowed(true);
+			 }
 			 else
 			 {
 				 gameWindowController->SetUserInteractionStatus(true);

@@ -295,7 +295,103 @@ bool Controller::LogicsController::DropNew(float move)
 
 bool Controller::LogicsController::FindAndRemoveChains()
 {
-	return false;
+	bool chainRemoved = false;
+	int boardHeight = gameBoardModel->GetBoardHeight();
+	int boardWidth = gameBoardModel->GetBoardWidth();
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+
+	vector<int> elementsInXChain;
+	vector<int> elementsInYChain;
+
+	for(int row = 0; row < boardHeight; row++)
+	{
+		for(int col = 0; col < boardWidth; col++)
+		{
+			Model::BoardElement currentElement = diamonds[(row * boardWidth) + col];
+
+			if(currentElement.type != None)
+			{
+
+				// check elements to the right
+				for(int i = col + 1; i < boardWidth; i++)
+				{
+					if(diamonds[(row * boardWidth) + i].type == currentElement.type)
+						elementsInXChain.push_back(diamonds[(row * boardWidth) + i].id);
+					else
+						break;
+				}
+
+				// check elements to the left
+				for(int j = col - 1; j >= 0; j--)
+				{
+					if(diamonds[(row * boardWidth) + j].type == currentElement.type)
+						elementsInXChain.push_back(diamonds[((row * boardWidth) + j)].id);
+					else
+						break;
+				}
+
+				// check if there are more than 3 elements in a row
+				if((elementsInXChain.size() + 1) >= 3)
+				{
+					Model::BoardElement tmpEl = currentElement;
+					tmpEl.type = None;
+					gameBoardModel->SetBoardElementByID(tmpEl.id, tmpEl);
+
+					for(unsigned int i = 0; i < elementsInXChain.size(); i++)
+					{
+						diamonds[elementsInXChain.at(i)].type = None;
+						gameBoardModel->SetBoardElementByID(elementsInXChain.at(i), diamonds[elementsInXChain.at(i)]);
+					}
+					elementsInXChain.clear();
+					chainRemoved = true;
+				}
+				else
+					elementsInXChain.clear();
+
+				// check elements down
+				for(unsigned int ii = row + 1; ii < boardHeight; ii++)
+				{
+					if(diamonds[(ii * boardWidth) + col].type == currentElement.type)
+						elementsInYChain.push_back(diamonds[(ii * boardWidth) + col].id);
+					else
+						break;
+				}
+
+				// check elements up
+				for(int jj = row - 1; jj >= 0; jj--)
+				{
+					if(diamonds[(jj * boardWidth) + col].type == currentElement.type)
+						elementsInYChain.push_back(diamonds[(jj * boardWidth) + col].id);
+					else
+						break;
+				}
+
+				// check if there are more than 3 elements in a column
+				if((elementsInYChain.size() + 1) >= 3)
+				{
+					Model::BoardElement tmpEl = currentElement;
+					tmpEl.type = None;
+					gameBoardModel->SetBoardElementByID(tmpEl.id, tmpEl);
+
+					for(unsigned int i = 0; i < elementsInYChain.size(); i++)
+					{
+						diamonds[elementsInYChain.at(i)].type = None;
+						gameBoardModel->SetBoardElementByID(elementsInYChain.at(i), diamonds[elementsInYChain.at(i)]);
+					}
+					elementsInYChain.clear();
+					chainRemoved = true;
+				}
+				else
+					elementsInYChain.clear();
+
+			}
+			else
+				continue;
+
+		}
+	}
+
+	return chainRemoved;
 }
 
 bool Controller::LogicsController::CheckForMoves()
