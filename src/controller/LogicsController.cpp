@@ -96,8 +96,8 @@ bool Controller::LogicsController::Swap(float move)
 				}
 				else
 				{
-					element0.pos.y -= 1;
-					element1.pos.y += 1;
+					element0.pos.y -= (int)move;
+					element1.pos.y += (int)move;
 					gameBoardModel->SetBoardElementByID(element0.id, element0);
 					gameBoardModel->SetBoardElementByID(element1.id, element1);
 
@@ -123,8 +123,8 @@ bool Controller::LogicsController::Swap(float move)
 				}
 				else
 				{
-					element0.pos.y += 1;
-					element1.pos.y -= 1;
+					element0.pos.y += (int)move;
+					element1.pos.y -= (int)move;
 					gameBoardModel->SetBoardElementByID(element0.id, element0);
 					gameBoardModel->SetBoardElementByID(element1.id, element1);
 
@@ -153,8 +153,8 @@ bool Controller::LogicsController::Swap(float move)
 				}
 				else
 				{
-					element0.pos.x -= 1;
-					element1.pos.x += 1;
+					element0.pos.x -= (int)move;
+					element1.pos.x += (int)move;
 					gameBoardModel->SetBoardElementByID(element0.id, element0);
 					gameBoardModel->SetBoardElementByID(element1.id, element1);
 
@@ -179,8 +179,8 @@ bool Controller::LogicsController::Swap(float move)
 				}
 				else
 				{
-					element0.pos.x += 1;
-					element1.pos.x -= 1;
+					element0.pos.x += (int)move;
+					element1.pos.x -= (int)move;
 					gameBoardModel->SetBoardElementByID(element0.id, element0);
 					gameBoardModel->SetBoardElementByID(element1.id, element1);
 
@@ -237,7 +237,7 @@ bool Controller::LogicsController::MoveDown(float move)
 			}
 			else
 			{
-				diamonds.at(srcElementID.at(i)).pos.y += 1;
+				diamonds.at(srcElementID.at(i)).pos.y += (int)move;
 				gameBoardModel->SetBoardElementByID(diamonds.at(srcElementID.at(i)).id, diamonds.at(srcElementID.at(i)));
 			}
 		}
@@ -274,7 +274,7 @@ bool Controller::LogicsController::DropNew(float move)
 			}
 			else
 			{
-				diamonds.at(toBeDropped.at(i)).pos.y += 1;
+				diamonds.at(toBeDropped.at(i)).pos.y += (int)move;
 				gameBoardModel->SetBoardElementByID(toBeDropped.at(i), diamonds.at(toBeDropped.at(i)));
 			}
 		}
@@ -349,7 +349,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 					elementsInXChain.clear();
 
 				// check elements down
-				for(unsigned int ii = row + 1; ii < boardHeight; ii++)
+				for(int ii = row + 1; ii < boardHeight; ii++)
 				{
 					if(diamonds[(ii * boardWidth) + col].type == currentElement.type)
 						elementsInYChain.push_back(diamonds[(ii * boardWidth) + col].id);

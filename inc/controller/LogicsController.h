@@ -53,6 +53,7 @@ namespace Controller
 		void CountMoveSteps();
 		void CreateNewElements();
 		void SetDropLineYPos(int y);
+		void CalulateScore();
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -76,10 +77,10 @@ namespace Controller
 		// this vector holds all chains (3 or more elements in a row or/and column)
 		vector<vector<Model::BoardElement> > chains;
 
-		// ID of element on the board that will move down
+		// IDs of elements on the board that will move down
 		vector<int> srcElementID;
 
-		// ID of element that srcElement should move to
+		// IDs of elements that srcElements should move to
 		vector<int> dstElementID;
 
 		// state of elements that are moving down (moved, not moved)

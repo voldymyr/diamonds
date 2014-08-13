@@ -26,6 +26,8 @@ namespace Controller
 		bool GetUserInteractionStatus();
 		void SetUserInteractionStatus(bool status);
 		SDL_Surface* GetMainWindow() const;
+		void DispatchDrawNoMoreMoves();
+		void DispatchDrawGameOver();
 
 	private:
 		Model::GameWindowModel *gameWindowModel;

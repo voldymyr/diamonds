@@ -97,12 +97,16 @@ void Game::MainGameLoop()
 		if(noMoreMoves)
 		{
 			// Drow Specific stuff here
+			gameWindowController->DispatchDrawNoMoreMoves();
+
 			if(this->HandleRestartEvent())
 				continue;
 		}
 		else if(timeLeft <= 0)
 		{
 			// Drow specific stuff here
+			gameWindowController->DispatchDrawGameOver();
+
 			if(this->HandleRestartEvent())
 				continue;
 		}

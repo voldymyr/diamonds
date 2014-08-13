@@ -64,3 +64,13 @@ SDL_Surface* Controller::GameWindowController::GetMainWindow() const
 {
 	return gameWindowModel->GetMainWindow();
 }
+
+void Controller::GameWindowController::DispatchDrawNoMoreMoves()
+{
+
+}
+
+void Controller::GameWindowController::DispatchDrawGameOver()
+{
+
+}
