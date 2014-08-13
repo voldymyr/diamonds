@@ -103,6 +103,9 @@ void Game::MainGameLoop()
 		}
 		else if(timeLeft <= 0)
 		{
+			if(!gameWindowController->GetUserInteractionStatus())
+				gameWindowController->SetUserInteractionStatus(true);
+
 			gameWindowController->DispatchDrawGameOver();
 
 			if(this->HandleRestartEvent())
