@@ -96,7 +96,6 @@ void Game::MainGameLoop()
 
 		if(noMoreMoves)
 		{
-			// Drow Specific stuff here
 			gameWindowController->DispatchDrawNoMoreMoves();
 
 			if(this->HandleRestartEvent())
@@ -104,7 +103,6 @@ void Game::MainGameLoop()
 		}
 		else if(timeLeft <= 0)
 		{
-			// Drow specific stuff here
 			gameWindowController->DispatchDrawGameOver();
 
 			if(this->HandleRestartEvent())
@@ -232,6 +230,7 @@ void Game::ResetGame()
 	logicsController->SetSwapBackAllowed(false);
 	logicsController->SetMoveDownAllowed(false);
 	logicsController->SetDropNewAllowed(false);
+	logicsController->ClearSwapPair();
 }
 
 void Game::UpdateTime(Uint32& old, Uint32& curr)

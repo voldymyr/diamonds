@@ -38,6 +38,7 @@ namespace Model
 		SDL_Surface* GetGameOverStr(void);
 		void SetGameOverRect(SDL_Rect *rect);
 		SDL_Rect GetGameOverRect(void);
+
 		bool GetUserInteraction();
 		void SetUserInteraction(bool inter);
 

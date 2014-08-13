@@ -67,7 +67,9 @@ SDL_Surface* Controller::GameWindowController::GetMainWindow() const
 
 void Controller::GameWindowController::DispatchDrawNoMoreMoves()
 {
-
+	//SDL_Surface* window = gameWindowModel->GetMainWindow();
+	//SDL_Surface* text = gameWindowModel->GetNoMoreMoves();
+	//gameWindowView->DrawImage(text, window);
 }
 
 void Controller::GameWindowController::DispatchDrawGameOver()
