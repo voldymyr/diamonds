@@ -54,6 +54,7 @@ namespace Controller
 		void CreateNewElements();
 		void SetDropLineYPos(int y);
 		void CalulateScore();
+		void GameReset();
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -69,6 +70,9 @@ namespace Controller
 		bool allowSwapBack;
 		bool allowMoveDown;
 		bool allowDropNew;
+
+		unsigned int allMoved;
+		unsigned int allDropped;
 
 		bool swapBackDone;
 

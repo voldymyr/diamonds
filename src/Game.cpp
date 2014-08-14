@@ -234,6 +234,7 @@ void Game::ResetGame()
 	logicsController->SetMoveDownAllowed(false);
 	logicsController->SetDropNewAllowed(false);
 	logicsController->ClearSwapPair();
+	logicsController->GameReset();
 }
 
 void Game::UpdateTime(Uint32& old, Uint32& curr)

@@ -17,6 +17,9 @@ Controller::LogicsController::LogicsController()
 	allowMoveDown = false;
 	allowDropNew = false;
 
+	allMoved = 0;
+	allDropped = 0;
+
 	swapBackDone = false;
 	move = 0.0;
 }
@@ -213,8 +216,6 @@ bool Controller::LogicsController::MoveDown(float move)
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 	vector<Model::BoardElement> level = gameBoardModel->GetLevelModel();
 
-	static unsigned int allMoved = 0;
-
 	for(unsigned int i = 0; i < srcElementID.size(); i++)
 	{
 		if(movedDown.at(i) == false)
@@ -257,8 +258,6 @@ bool Controller::LogicsController::DropNew(float move)
 {
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 	vector<Model::BoardElement> level = gameBoardModel->GetLevelModel();
-
-	static unsigned int allDropped = 0;
 
 	for(unsigned int i = 0; i < toBeDropped.size(); i++)
 	{
@@ -993,4 +992,9 @@ void Controller::LogicsController::CreateNewElements()
 void Controller::LogicsController::SetDropLineYPos(int y)
 {
 	gameBoardModel->SetDropLineYPos(y);
+}
+
+void Controller::LogicsController::GameReset()
+{
+	allMoved = allDropped = 0;
 }
