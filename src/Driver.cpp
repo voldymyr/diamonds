@@ -41,6 +41,11 @@ int main(int argc, char** argv)
 	theGame->SetElementsStartPixelsXY(320, 100);
 	theGame->SetDropLineYPos(40);
 
+	SDL_Color color = {255, 255, 255};
+	//theGame->SetFont("FaceFont.ttf", 90);
+	//theGame->SetColor(&color);
+	//theGame->SetNoMoreMovesStr("No more moves Left. Right Click to restart!", 600, 100, 77, 250);
+
 	// Set level time
 	float t = 60.0;
 	theGame->SetLevelTime(t);

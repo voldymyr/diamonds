@@ -26,15 +26,23 @@ Model::GameWindowModel::GameWindowModel()
 	gameOverRect.w = 0;
 	gameOverRect.x = 0;
 	gameOverRect.y = 0;
+
+	noMoreMovesStr = NULL;
+	noMoreMovesRect.h = 0;
+	noMoreMovesRect.w = 0;
+	noMoreMovesRect.x = 0;
+	noMoreMovesRect.y = 0;
+
 	userInteractionAllowed = true;
 }
 
 Model::GameWindowModel::~GameWindowModel()
 {
-	SDL_FreeSurface(mainWindow);
-	SDL_FreeSurface(backGroundIMG);
-	TTF_CloseFont(textFont);
+	SDL_FreeSurface(noMoreMovesStr);
 	SDL_FreeSurface(gameOverStr);
+	TTF_CloseFont(textFont);
+	SDL_FreeSurface(backGroundIMG);
+	SDL_FreeSurface(mainWindow);
 }
 
 void Model::GameWindowModel::SetWindowWidth(int width)
@@ -148,6 +156,16 @@ void Model::GameWindowModel::SetGameOverRect(SDL_Rect *rect)
 SDL_Rect Model::GameWindowModel::GetGameOverRect()
 {
 	return gameOverRect;
+}
+
+void Model::GameWindowModel::SetNoMoreMovesStr(SDL_Surface** surfaceStr)
+{
+	noMoreMovesStr = *surfaceStr;
+}
+
+SDL_Surface* Model::GameWindowModel::GetNoMoreMovesStr()
+{
+	return noMoreMovesStr;
 }
 
 bool Model::GameWindowModel::GetUserInteraction()

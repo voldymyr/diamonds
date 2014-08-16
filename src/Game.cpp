@@ -118,6 +118,7 @@ void Game::MainGameLoop()
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
 
+			//SDL_Delay(10);
 			move = logicsController->CalculateMovePoints(oldTime, currentTime);
 			this->ProcessGameLogics(window, move);
 		}
@@ -167,6 +168,16 @@ void Game::SetElementsStartPixelsXY(int x, int y)
 void Game::SetDropLineYPos(int y)
 {
 	logicsController->SetDropLineYPos(y);
+}
+
+void Game::SetNoMoreMovesStr(const char* str, int w, int h, int x, int y)
+{
+	gameWindowController->LoadNoMoreMoves(str, w, h, x, y);
+}
+
+void Game::SetGameOverStr(const char* str, int w, int h, int x, int y)
+{
+	gameWindowController->LoadGameOver(str, w, h, x, y);
 }
 
 void Game::RegisterEvent()

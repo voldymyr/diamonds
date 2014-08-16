@@ -38,6 +38,8 @@ namespace Model
 		SDL_Surface* GetGameOverStr(void);
 		void SetGameOverRect(SDL_Rect *rect);
 		SDL_Rect GetGameOverRect(void);
+		void SetNoMoreMovesStr(SDL_Surface** surfaceStr);
+		SDL_Surface* GetNoMoreMovesStr(void);
 
 		bool GetUserInteraction();
 		void SetUserInteraction(bool inter);
@@ -52,6 +54,8 @@ namespace Model
 		SDL_Color textColor;
 		SDL_Surface* gameOverStr;
 		SDL_Rect gameOverRect;
+		SDL_Surface* noMoreMovesStr;
+		SDL_Rect noMoreMovesRect;
 		bool userInteractionAllowed;
 	};
 }

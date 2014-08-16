@@ -26,7 +26,11 @@ namespace Controller
 		bool GetUserInteractionStatus();
 		void SetUserInteractionStatus(bool status);
 		SDL_Surface* GetMainWindow() const;
+		void LoadFont(TTF_Font* font);
+		void LoadColor(SDL_Color* color);
+		void LoadNoMoreMoves(const char* str, int w, int h, int x, int y);
 		void DispatchDrawNoMoreMoves();
+		void LoadGameOver(const char* str, int w, int h, int x, int y);
 		void DispatchDrawGameOver();
 
 	private:

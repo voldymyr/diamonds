@@ -35,6 +35,10 @@ public:
 	void SetElementOffset(int offs);
 	void SetElementsStartPixelsXY(int x, int y);
 	void SetDropLineYPos(int y);
+	void SetFont(const char* font_str);
+	void SetColor(SDL_Color* color);
+	void SetNoMoreMovesStr(const char* str, int w, int h, int x, int y);
+	void SetGameOverStr(const char* str, int w, int h, int x, int y);
 
 private:
 	void RegisterEvent();
