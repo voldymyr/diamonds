@@ -123,7 +123,6 @@ void Game::MainGameLoop()
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
 
-			//SDL_Delay(10);
 			move = logicsController->CalculateMovePoints(oldTime, currentTime);
 			this->ProcessGameLogics(window, move);
 		}

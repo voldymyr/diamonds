@@ -104,5 +104,4 @@ namespace Controller
 	};
 }
 
-
 #endif /* LOGICSCONTROLLER_H_ */
