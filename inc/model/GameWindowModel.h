@@ -30,7 +30,7 @@ namespace Model
 		SDL_Surface* GetBackGroundIMG(void);
 		void SetBackGroundRect(SDL_Rect *rect);
 		SDL_Rect GetBackGroundRect(void);
-		void SetTextFont(TTF_Font **font);
+		void SetTextFont(TTF_Font *&font);
 		TTF_Font* GetTextFont(void);
 		void SetTextColor(SDL_Color *color);
 		SDL_Color GetTextColor(void);
@@ -40,6 +40,10 @@ namespace Model
 		SDL_Rect GetGameOverRect(void);
 		void SetNoMoreMovesStr(SDL_Surface** surfaceStr);
 		SDL_Surface* GetNoMoreMovesStr(void);
+		void SetNoMoreMovesRect(SDL_Rect *rect);
+		SDL_Rect GetNoMoreMovesRect(void);
+		void SetTimeSurface(SDL_Surface** surf);
+		SDL_Surface* GetTimeSurface();
 
 		bool GetUserInteraction();
 		void SetUserInteraction(bool inter);
@@ -56,6 +60,7 @@ namespace Model
 		SDL_Rect gameOverRect;
 		SDL_Surface* noMoreMovesStr;
 		SDL_Rect noMoreMovesRect;
+		SDL_Surface* timeSurface;
 		bool userInteractionAllowed;
 	};
 }

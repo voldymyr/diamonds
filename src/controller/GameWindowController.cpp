@@ -65,9 +65,9 @@ SDL_Surface* Controller::GameWindowController::GetMainWindow() const
 	return gameWindowModel->GetMainWindow();
 }
 
-void Controller::GameWindowController::LoadFont(TTF_Font* font)
+void Controller::GameWindowController::LoadFont(TTF_Font*& font)
 {
-	gameWindowModel->SetTextFont(&font);
+	gameWindowModel->SetTextFont(font);
 }
 
 void Controller::GameWindowController::LoadColor(SDL_Color* color)
@@ -78,9 +78,18 @@ void Controller::GameWindowController::LoadColor(SDL_Color* color)
 void Controller::GameWindowController::LoadNoMoreMoves(const char* str, int w, int h, int x, int y)
 {
 	TTF_Font* textFont = gameWindowModel->GetTextFont();
+
 	SDL_Color textColor = gameWindowModel->GetTextColor();
 
 	SDL_Surface* textSurface = TTF_RenderText_Blended(textFont, str, textColor);
+
+	SDL_Rect rect;
+	rect.h = h;
+	rect.w = w;
+	rect.x = x;
+	rect.y = y;
+
+	gameWindowModel->SetNoMoreMovesRect(&rect);
 
 	gameWindowModel->SetNoMoreMovesStr(&textSurface);
 }
@@ -89,7 +98,8 @@ void Controller::GameWindowController::DispatchDrawNoMoreMoves()
 {
 	SDL_Surface* window = gameWindowModel->GetMainWindow();
 	SDL_Surface* text = gameWindowModel->GetNoMoreMovesStr();
-	gameWindowView->DrawImage(text, window);
+	SDL_Rect rect = gameWindowModel->GetNoMoreMovesRect();
+	gameWindowView->DrawImage(text, &rect, window);
 }
 
 void Controller::GameWindowController::LoadGameOver(const char* str, int w, int h, int x, int y)
@@ -97,14 +107,41 @@ void Controller::GameWindowController::LoadGameOver(const char* str, int w, int 
 	TTF_Font* textFont = gameWindowModel->GetTextFont();
 	SDL_Color textColor = gameWindowModel->GetTextColor();
 
+	SDL_Rect rect;
+	rect.h = h;
+	rect.w = w;
+	rect.x = x;
+	rect.y = y;
+
 	SDL_Surface* textSurface = TTF_RenderText_Blended(textFont, str, textColor);
 
 	gameWindowModel->SetGameOverStr(&textSurface);
+	gameWindowModel->SetGameOverRect(&rect);
 }
 
 void Controller::GameWindowController::DispatchDrawGameOver()
 {
 	SDL_Surface* window = gameWindowModel->GetMainWindow();
 	SDL_Surface* text = gameWindowModel->GetGameOverStr();
-	gameWindowView->DrawImage(text, window);
+	SDL_Rect rect = gameWindowModel->GetGameOverRect();
+	gameWindowView->DrawImage(text, &rect, window);
+}
+
+void Controller::GameWindowController::LoadTime(const char* timeStr)
+{
+	TTF_Font* textFont = gameWindowModel->GetTextFont();
+	SDL_Color textColor = gameWindowModel->GetTextColor();
+
+	SDL_Surface* timeSurface = TTF_RenderText_Blended(textFont, timeStr, textColor);
+	gameWindowModel->SetTimeSurface(&timeSurface);
+}
+
+void Controller::GameWindowController::DispatchDrawTime()
+{
+	SDL_Surface* window = gameWindowModel->GetMainWindow();
+	SDL_Surface* time = gameWindowModel->GetTimeSurface();
+	SDL_Rect rect;
+	rect.x = 90;
+	rect.y = 445;
+	gameWindowView->DrawImage(time, &rect, window);
 }

@@ -47,6 +47,7 @@ void Game::MainGameLoop()
 {
 	Uint32 oldTime = 0, currentTime = 0;
 	float move = 0.0;
+	char numToStrTime[25];
 
 	/*int audio_rate = 22050;
 	Uint16 audio_format = AUDIO_S16SYS;
@@ -94,6 +95,9 @@ void Game::MainGameLoop()
 
 		this->UpdateTime(oldTime, currentTime);
 
+		sprintf(numToStrTime, "%d", (int)timeLeft);
+		gameWindowController->LoadTime(numToStrTime);
+
 		if(noMoreMoves)
 		{
 			gameWindowController->DispatchDrawNoMoreMoves();
@@ -114,6 +118,7 @@ void Game::MainGameLoop()
 		else
 		{
 			// Draw Time
+			gameWindowController->DispatchDrawTime();
 
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
@@ -168,6 +173,17 @@ void Game::SetElementsStartPixelsXY(int x, int y)
 void Game::SetDropLineYPos(int y)
 {
 	logicsController->SetDropLineYPos(y);
+}
+
+void Game::SetFont(const char* fontStr, int size)
+{
+	TTF_Font* font = TTF_OpenFont(fontStr, size);
+	gameWindowController->LoadFont(font);
+}
+
+void Game::SetColor(SDL_Color* color)
+{
+	gameWindowController->LoadColor(color);
 }
 
 void Game::SetNoMoreMovesStr(const char* str, int w, int h, int x, int y)

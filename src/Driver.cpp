@@ -42,9 +42,10 @@ int main(int argc, char** argv)
 	theGame->SetDropLineYPos(40);
 
 	SDL_Color color = {255, 255, 255};
-	//theGame->SetFont("FaceFont.ttf", 90);
-	//theGame->SetColor(&color);
-	//theGame->SetNoMoreMovesStr("No more moves Left. Right Click to restart!", 600, 100, 77, 250);
+	theGame->SetFont("rc/FaceFont.ttf", 22);
+	theGame->SetColor(&color);
+	theGame->SetNoMoreMovesStr("No more moves Left. Right Click to restart!", 600, 100, 40, 250);
+	theGame->SetGameOverStr("Game Over. Right Click to restart!", 600, 100, 70, 250);
 
 	// Set level time
 	float t = 60.0;

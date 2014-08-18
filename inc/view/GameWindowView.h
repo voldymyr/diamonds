@@ -19,6 +19,7 @@ namespace View
 		~GameWindowView();
 		void UpdateWindow(SDL_Surface*& window);
 		void DrawImage(SDL_Surface*& img, SDL_Surface*& window);
+		void DrawImage(SDL_Surface*& img, SDL_Rect* rect, SDL_Surface*& window);
 	};
 }
 

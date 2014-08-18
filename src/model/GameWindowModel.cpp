@@ -33,11 +33,14 @@ Model::GameWindowModel::GameWindowModel()
 	noMoreMovesRect.x = 0;
 	noMoreMovesRect.y = 0;
 
+	timeSurface = NULL;
+
 	userInteractionAllowed = true;
 }
 
 Model::GameWindowModel::~GameWindowModel()
 {
+	SDL_FreeSurface(timeSurface);
 	SDL_FreeSurface(noMoreMovesStr);
 	SDL_FreeSurface(gameOverStr);
 	TTF_CloseFont(textFont);
@@ -118,9 +121,9 @@ SDL_Rect Model::GameWindowModel::GetBackGroundRect()
 	return backGroundRect;
 }
 
-void Model::GameWindowModel::SetTextFont(TTF_Font **font)
+void Model::GameWindowModel::SetTextFont(TTF_Font *&font)
 {
-	textFont = *font;
+	textFont = font;
 }
 
 TTF_Font* Model::GameWindowModel::GetTextFont()
@@ -168,6 +171,16 @@ SDL_Surface* Model::GameWindowModel::GetNoMoreMovesStr()
 	return noMoreMovesStr;
 }
 
+void Model::GameWindowModel::SetNoMoreMovesRect(SDL_Rect* rect)
+{
+	noMoreMovesRect = *rect;
+}
+
+SDL_Rect Model::GameWindowModel::GetNoMoreMovesRect()
+{
+	return noMoreMovesRect;
+}
+
 bool Model::GameWindowModel::GetUserInteraction()
 {
 	return userInteractionAllowed;
@@ -176,4 +189,14 @@ bool Model::GameWindowModel::GetUserInteraction()
 void Model::GameWindowModel::SetUserInteraction(bool inter)
 {
 	userInteractionAllowed = inter;
+}
+
+void Model::GameWindowModel::SetTimeSurface(SDL_Surface** surf)
+{
+	timeSurface = *surf;
+}
+
+SDL_Surface* Model::GameWindowModel::GetTimeSurface()
+{
+	return timeSurface;
 }

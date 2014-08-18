@@ -26,3 +26,8 @@ void View::GameWindowView::DrawImage(SDL_Surface*& img, SDL_Surface*& window)
 	SDL_BlitSurface(img, NULL, window, NULL);
 }
 
+void View::GameWindowView::DrawImage(SDL_Surface*& img, SDL_Rect* rect, SDL_Surface*& window)
+{
+	SDL_BlitSurface(img, NULL, window, rect);
+}
+
