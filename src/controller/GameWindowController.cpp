@@ -141,7 +141,26 @@ void Controller::GameWindowController::DispatchDrawTime()
 	SDL_Surface* window = gameWindowModel->GetMainWindow();
 	SDL_Surface* time = gameWindowModel->GetTimeSurface();
 	SDL_Rect rect;
-	rect.x = 90;
-	rect.y = 445;
+	rect.x = 10;
+	rect.y = 150; // 455
 	gameWindowView->DrawImage(time, &rect, window);
+}
+
+void Controller::GameWindowController::LoadScore(const char* scoreStr)
+{
+	TTF_Font* textFont = gameWindowModel->GetTextFont();
+	SDL_Color textColor = gameWindowModel->GetTextColor();
+
+	SDL_Surface* scoreSurface = TTF_RenderText_Blended(textFont, scoreStr, textColor);
+	gameWindowModel->SetScoreSurface(&scoreSurface);
+}
+
+void Controller::GameWindowController::DispatchDrawScore()
+{
+	SDL_Surface* window = gameWindowModel->GetMainWindow();
+	SDL_Surface* score = gameWindowModel->GetScoreSurface();
+	SDL_Rect rect;
+	rect.x = 10;
+	rect.y = 100;
+	gameWindowView->DrawImage(score, &rect, window);
 }

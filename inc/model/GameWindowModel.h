@@ -44,6 +44,8 @@ namespace Model
 		SDL_Rect GetNoMoreMovesRect(void);
 		void SetTimeSurface(SDL_Surface** surf);
 		SDL_Surface* GetTimeSurface();
+		void SetScoreSurface(SDL_Surface** surf);
+		SDL_Surface* GetScoreSurface();
 
 		bool GetUserInteraction();
 		void SetUserInteraction(bool inter);
@@ -61,6 +63,7 @@ namespace Model
 		SDL_Surface* noMoreMovesStr;
 		SDL_Rect noMoreMovesRect;
 		SDL_Surface* timeSurface;
+		SDL_Surface* scoreSurface;
 		bool userInteractionAllowed;
 	};
 }

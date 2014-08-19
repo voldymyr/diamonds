@@ -49,28 +49,6 @@ void Game::MainGameLoop()
 	float move = 0.0;
 	char numToStrTime[25];
 
-	/*int audio_rate = 22050;
-	Uint16 audio_format = AUDIO_S16SYS;
-	int audio_channels = 2;
-	int audio_buffers = 4096;
-
-	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0)
-		fprintf(stderr, "Unable to initialize audio: %s\n", Mix_GetError());
-
-	Mix_Chunk *sound = NULL;
-
-	sound = Mix_LoadWAV("rc/bell.wav");
-	if(sound == NULL) {
-		fprintf(stderr, "Unable to load WAV file: %s\n", Mix_GetError());
-	}
-
-	int channel;
-
-	channel = Mix_PlayChannel(-1, sound, 0);
-	if(channel == -1) {
-		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
-	}*/
-
 	// Shuffle elements until there are moves available
 	do
 	{
@@ -83,8 +61,6 @@ void Game::MainGameLoop()
 	currentTime = SDL_GetTicks();
 	while(!bQuit)
 	{
-		//Mix_PlayChannel(-1, sound, 0);
-		// Draw background and elements
 		gameWindowController->DispatchDrawBackgroundImage();
 		logicsController->DispatchDrawElements(window);
 
@@ -94,13 +70,19 @@ void Game::MainGameLoop()
 			break;
 
 		this->UpdateTime(oldTime, currentTime);
+		timeLeft = (timeLeft < 0) ? 0 : timeLeft;
 
-		sprintf(numToStrTime, "%d", (int)timeLeft);
+		sprintf(numToStrTime, "Time: %d", (int)timeLeft);
 		gameWindowController->LoadTime(numToStrTime);
+
+		char numToStrScore[50];
+		sprintf(numToStrScore, "Score: %d", logicsController->GetScore());
+		gameWindowController->LoadScore(numToStrScore);
 
 		if(noMoreMoves)
 		{
 			gameWindowController->DispatchDrawNoMoreMoves();
+			gameWindowController->DispatchDrawScore();
 
 			if(this->HandleRestartEvent())
 				continue;
@@ -111,14 +93,16 @@ void Game::MainGameLoop()
 				gameWindowController->SetUserInteractionStatus(true);
 
 			gameWindowController->DispatchDrawGameOver();
+			gameWindowController->DispatchDrawScore();
+			gameWindowController->DispatchDrawTime();
 
 			if(this->HandleRestartEvent())
 				continue;
 		}
 		else
 		{
-			// Draw Time
 			gameWindowController->DispatchDrawTime();
+			gameWindowController->DispatchDrawScore();
 
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
@@ -128,6 +112,10 @@ void Game::MainGameLoop()
 		}
 
 		gameWindowController->DispatchUpdateWindow();
+
+		// Free related surfaces
+		//gameWindowController->UnloadScore();
+		//gameWindowController->UnloadTime();
 	}
 
 	window = NULL;
@@ -243,7 +231,10 @@ bool Game::HandleQuitEvent()
 void Game::ResetGame()
 {
 	if(timeLeft <= 0)
+	{
 		timeLeft = allowedLevelTime;
+		logicsController->SetScore(0);
+	}
 
 	noMoreMoves = false;
 
@@ -277,7 +268,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 		if(logicsController->Swap(move))
 		{
 			logicsController->FindChainsForSwapPair();
-			// logicsController->CalculateScore();
+			logicsController->CalculateScore();
 			logicsController->RemoveChainsFromBoard();
 			logicsController->CountMoveSteps();
 			logicsController->SetSwapAllowed(false);

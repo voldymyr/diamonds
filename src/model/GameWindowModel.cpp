@@ -34,12 +34,14 @@ Model::GameWindowModel::GameWindowModel()
 	noMoreMovesRect.y = 0;
 
 	timeSurface = NULL;
+	scoreSurface = NULL;
 
 	userInteractionAllowed = true;
 }
 
 Model::GameWindowModel::~GameWindowModel()
 {
+	SDL_FreeSurface(scoreSurface);
 	SDL_FreeSurface(timeSurface);
 	SDL_FreeSurface(noMoreMovesStr);
 	SDL_FreeSurface(gameOverStr);
@@ -181,6 +183,26 @@ SDL_Rect Model::GameWindowModel::GetNoMoreMovesRect()
 	return noMoreMovesRect;
 }
 
+void Model::GameWindowModel::SetTimeSurface(SDL_Surface** surf)
+{
+	timeSurface = *surf;
+}
+
+SDL_Surface* Model::GameWindowModel::GetTimeSurface()
+{
+	return timeSurface;
+}
+
+void Model::GameWindowModel::SetScoreSurface(SDL_Surface** surf)
+{
+	scoreSurface = *surf;
+}
+
+SDL_Surface* Model::GameWindowModel::GetScoreSurface()
+{
+	return scoreSurface;
+}
+
 bool Model::GameWindowModel::GetUserInteraction()
 {
 	return userInteractionAllowed;
@@ -191,12 +213,4 @@ void Model::GameWindowModel::SetUserInteraction(bool inter)
 	userInteractionAllowed = inter;
 }
 
-void Model::GameWindowModel::SetTimeSurface(SDL_Surface** surf)
-{
-	timeSurface = *surf;
-}
 
-SDL_Surface* Model::GameWindowModel::GetTimeSurface()
-{
-	return timeSurface;
-}

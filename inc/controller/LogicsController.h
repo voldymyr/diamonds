@@ -53,8 +53,10 @@ namespace Controller
 		void CountMoveSteps();
 		void CreateNewElements();
 		void SetDropLineYPos(int y);
-		void CalulateScore();
+		void CalculateScore();
 		void GameReset();
+		void SetScore(int newScore);
+		int GetScore();
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -77,6 +79,8 @@ namespace Controller
 		bool swapBackDone;
 
 		float move;
+
+		int score;
 
 		// this vector holds all chains (3 or more elements in a row or/and column)
 		vector<vector<Model::BoardElement> > chains;

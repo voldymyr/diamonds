@@ -22,6 +22,7 @@ Controller::LogicsController::LogicsController()
 
 	swapBackDone = false;
 	move = 0.0;
+	score = 0;
 }
 
 Controller::LogicsController::~LogicsController()
@@ -994,7 +995,46 @@ void Controller::LogicsController::SetDropLineYPos(int y)
 	gameBoardModel->SetDropLineYPos(y);
 }
 
+void Controller::LogicsController::CalculateScore()
+{
+	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+	int tmpScore = 0;
+	int scorePerSwap = 0;
+
+	for(unsigned int i = 0; i < chains.size(); i++)
+	{
+		tmpScore = 0;
+		// Sum up elements in one chain
+		for(unsigned int j = 0; j < chains.at(i).size(); j++)
+			tmpScore += chains.at(i).at(j).value;
+
+		// multiply calculated score per chain by 2 if chain has 4 or 5 elements
+		if(chains.at(i).size() >= 4)
+			tmpScore = tmpScore * 2;
+
+		scorePerSwap += tmpScore;
+
+	}
+
+	// if user has matched 2 or more chains, multiply his result by 2
+	if(chains.size() >= 2)
+		scorePerSwap *= 2;
+
+	score += scorePerSwap;
+
+}
+
 void Controller::LogicsController::GameReset()
 {
 	allMoved = allDropped = 0;
+}
+
+void Controller::LogicsController::SetScore(int newScore)
+{
+	score = newScore;
+}
+
+int Controller::LogicsController::GetScore()
+{
+	return score;
 }

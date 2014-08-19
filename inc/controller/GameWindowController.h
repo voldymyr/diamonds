@@ -34,6 +34,8 @@ namespace Controller
 		void DispatchDrawGameOver();
 		void LoadTime(const char* timeStr);
 		void DispatchDrawTime();
+		void LoadScore(const char* scoreStr);
+		void DispatchDrawScore();
 
 	private:
 		Model::GameWindowModel *gameWindowModel;
