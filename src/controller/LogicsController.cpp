@@ -296,6 +296,7 @@ bool Controller::LogicsController::DropNew(float move)
 bool Controller::LogicsController::FindAndRemoveChains()
 {
 	chains.clear();
+	vector<Model::BoardElement> elementsInChain;
 	bool chainRemoved = false;
 	int boardHeight = gameBoardModel->GetBoardHeight();
 	int boardWidth = gameBoardModel->GetBoardWidth();
@@ -320,7 +321,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 					if(diamonds[(row * boardWidth) + i].type == currentElement.type)
 					{
 						elementsInXChain.push_back(diamonds[(row * boardWidth) + i].id);
-						chains[0].push_back(diamonds[(row * boardWidth) + i]);
+						elementsInChain.push_back(diamonds[(row * boardWidth) + i]);
 					}
 					else
 						break;
@@ -332,7 +333,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 					if(diamonds[(row * boardWidth) + j].type == currentElement.type)
 					{
 						elementsInXChain.push_back(diamonds[((row * boardWidth) + j)].id);
-						chains[0].push_back(diamonds[(row * boardWidth) + j]);
+						elementsInChain.push_back(diamonds[(row * boardWidth) + j]);
 					}
 					else
 						break;
@@ -341,6 +342,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 				// check if there are more than 3 elements in a row
 				if((elementsInXChain.size() + 1) >= 3)
 				{
+					chains.push_back(elementsInChain);
 					Model::BoardElement tmpEl = currentElement;
 					tmpEl.type = None;
 					gameBoardModel->SetBoardElementByID(tmpEl.id, tmpEl);
@@ -356,7 +358,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 				else
 				{
 					elementsInXChain.clear();
-					chains.clear();
+					elementsInChain.clear();
 				}
 
 				// check elements down
@@ -365,7 +367,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 					if(diamonds[(ii * boardWidth) + col].type == currentElement.type)
 					{
 						elementsInYChain.push_back(diamonds[(ii * boardWidth) + col].id);
-						chains[1].push_back(diamonds[(ii * boardWidth) + col]);
+						elementsInChain.push_back(diamonds[(ii * boardWidth) + col]);
 					}
 					else
 						break;
@@ -377,7 +379,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 					if(diamonds[(jj * boardWidth) + col].type == currentElement.type)
 					{
 						elementsInYChain.push_back(diamonds[(jj * boardWidth) + col].id);
-						chains[1].push_back(diamonds[(jj * boardWidth) + col]);
+						elementsInChain.push_back(diamonds[(jj * boardWidth) + col]);
 					}
 					else
 						break;
@@ -386,6 +388,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 				// check if there are more than 3 elements in a column
 				if((elementsInYChain.size() + 1) >= 3)
 				{
+					chains.push_back(elementsInChain);
 					Model::BoardElement tmpEl = currentElement;
 					tmpEl.type = None;
 					gameBoardModel->SetBoardElementByID(tmpEl.id, tmpEl);
@@ -401,7 +404,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 				else
 				{
 					elementsInYChain.clear();
-					chains.clear();
+					elementsInChain.clear();
 				}
 
 				CalculateScore();
@@ -1019,7 +1022,6 @@ void Controller::LogicsController::SetDropLineYPos(int y)
 
 void Controller::LogicsController::CalculateScore()
 {
-	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 	int tmpScore = 0;
 	int scorePerSwap = 0;
 
