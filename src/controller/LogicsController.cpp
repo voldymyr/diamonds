@@ -295,6 +295,7 @@ bool Controller::LogicsController::DropNew(float move)
 
 bool Controller::LogicsController::FindAndRemoveChains()
 {
+	chains.clear();
 	bool chainRemoved = false;
 	int boardHeight = gameBoardModel->GetBoardHeight();
 	int boardWidth = gameBoardModel->GetBoardWidth();
@@ -307,6 +308,7 @@ bool Controller::LogicsController::FindAndRemoveChains()
 	{
 		for(int col = 0; col < boardWidth; col++)
 		{
+			chains.clear();
 			Model::BoardElement currentElement = diamonds[(row * boardWidth) + col];
 
 			if(currentElement.type != None)
@@ -316,7 +318,10 @@ bool Controller::LogicsController::FindAndRemoveChains()
 				for(int i = col + 1; i < boardWidth; i++)
 				{
 					if(diamonds[(row * boardWidth) + i].type == currentElement.type)
+					{
 						elementsInXChain.push_back(diamonds[(row * boardWidth) + i].id);
+						chains[0].push_back(diamonds[(row * boardWidth) + i]);
+					}
 					else
 						break;
 				}
@@ -325,7 +330,10 @@ bool Controller::LogicsController::FindAndRemoveChains()
 				for(int j = col - 1; j >= 0; j--)
 				{
 					if(diamonds[(row * boardWidth) + j].type == currentElement.type)
+					{
 						elementsInXChain.push_back(diamonds[((row * boardWidth) + j)].id);
+						chains[0].push_back(diamonds[(row * boardWidth) + j]);
+					}
 					else
 						break;
 				}
@@ -346,13 +354,19 @@ bool Controller::LogicsController::FindAndRemoveChains()
 					chainRemoved = true;
 				}
 				else
+				{
 					elementsInXChain.clear();
+					chains.clear();
+				}
 
 				// check elements down
 				for(int ii = row + 1; ii < boardHeight; ii++)
 				{
 					if(diamonds[(ii * boardWidth) + col].type == currentElement.type)
+					{
 						elementsInYChain.push_back(diamonds[(ii * boardWidth) + col].id);
+						chains[1].push_back(diamonds[(ii * boardWidth) + col]);
+					}
 					else
 						break;
 				}
@@ -361,7 +375,10 @@ bool Controller::LogicsController::FindAndRemoveChains()
 				for(int jj = row - 1; jj >= 0; jj--)
 				{
 					if(diamonds[(jj * boardWidth) + col].type == currentElement.type)
+					{
 						elementsInYChain.push_back(diamonds[(jj * boardWidth) + col].id);
+						chains[1].push_back(diamonds[(jj * boardWidth) + col]);
+					}
 					else
 						break;
 				}
@@ -382,7 +399,12 @@ bool Controller::LogicsController::FindAndRemoveChains()
 					chainRemoved = true;
 				}
 				else
+				{
 					elementsInYChain.clear();
+					chains.clear();
+				}
+
+				CalculateScore();
 
 			}
 			else
