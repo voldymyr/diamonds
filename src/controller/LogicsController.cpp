@@ -216,6 +216,7 @@ bool Controller::LogicsController::MoveDown(float move)
 {
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 	vector<Model::BoardElement> level = gameBoardModel->GetLevelModel();
+	move += 1;
 
 	for(unsigned int i = 0; i < srcElementID.size(); i++)
 	{
@@ -259,6 +260,7 @@ bool Controller::LogicsController::DropNew(float move)
 {
 	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
 	vector<Model::BoardElement> level = gameBoardModel->GetLevelModel();
+	move += 1;
 
 	for(unsigned int i = 0; i < toBeDropped.size(); i++)
 	{
