@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # Python script for downloading and installing SDl1.2 Development ibrary on Linux
-# @author Alisk
+# @author Aliks
 
 import os
 
