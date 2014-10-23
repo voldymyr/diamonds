@@ -1,13 +1,13 @@
-CFLAGS=-O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF
+CFLAGS = -O2 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF
 
 diamonds: src/view/GameBoardView.o src/view/GameWindowView.o  src/model/GameBoardModel.o src/model/GameWindowModel.o src/engine/GameEngine.o  src/controller/GameWindowController.o src/controller/LogicsController.o src/Driver.o src/Game.o
 	g++ -o Release/diamonds src/view/GameBoardView.o src/view/GameWindowView.o src/model/GameBoardModel.o src/model/GameWindowModel.o src/engine/GameEngine.o src/controller/GameWindowController.o src/controller/LogicsController.o src/Driver.o src/Game.o -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf
 
 Game.o: src/Game.d -MT src/Game.d src/Game.cpp
-	g++ ($CFLAGS) src/Game.d -MT src/Game.d src/Game.cpp
+	g++ -O2 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF src/Game.d -MT src/Game.d src/Game.cpp
 
 Driver.o: src/Driver.d -MT src/Driver.d src/Driver.cpp
-	g++ ($CFLAGS) src/Driver.d -MT src/Driver.d -o src/Driver.o src/Driver.cpp
+	g++ -O2 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF src/Driver.d -MT src/Driver.d -o src/Driver.o src/Driver.cpp
 
 LogicsController.o: src/controller/LogicsController.d -MT src/controller/LogicsController.d src/controller/LogicsController.cpp
 	g++ $(CFLAGS) src/controller/LogicsController.d -MT src/controller/LogicsController.d -o src/controller/LogicsController.o src/controller/LogicsController.cpp
