@@ -6,6 +6,7 @@
 import os
 
 os.system("date")
+
 print "\n********** Preparing to install SDL1.2 Development Library **********\n"
 print "\t BE READY TO ENTER YOUR PASSWORD\n"
 
