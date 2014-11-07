@@ -57,6 +57,7 @@ namespace Controller
 		void GameReset();
 		void SetScore(int newScore);
 		int GetScore();
+		bool PairValid(void);
 
 	private:
 		int IsElementClicked(float x, float y);
@@ -64,9 +65,12 @@ namespace Controller
 		void CheckMoveValidity();
 		bool ChainValid(int col, int row);
 
+
 	private:
 		View::GameBoardView* gameBoardView;
 		Model::GameBoardModel* gameBoardModel;
+
+		bool validPairSelected;
 
 		bool allowSwap;
 		bool allowSwapBack;

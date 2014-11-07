@@ -107,8 +107,19 @@ void Game::MainGameLoop()
 			if(gameWindowController->GetUserInteractionStatus())
 				this->HandleLogicsEvent();
 
-			move = logicsController->CalculateMovePoints(oldTime, currentTime);
-			this->ProcessGameLogics(window, move);
+			/*
+			 * Steps below should only be executed if 2 elements have been selected
+			 * Some Flag should be created and checked
+			 */
+
+			if(logicsController->PairValid())
+			{
+				move = logicsController->CalculateMovePoints(oldTime, currentTime);
+				this->ProcessGameLogics(window, move);
+			}
+
+			//move = logicsController->CalculateMovePoints(oldTime, currentTime);
+			//this->ProcessGameLogics(window, move);
 		}
 
 		gameWindowController->DispatchUpdateWindow();

@@ -12,6 +12,8 @@ Controller::LogicsController::LogicsController()
 	gameBoardView = new View::GameBoardView();
 	gameBoardModel = new Model::GameBoardModel();
 
+	validPairSelected = false;
+
 	allowSwap = false;
 	allowSwapBack = false;
 	allowMoveDown = false;
@@ -519,10 +521,17 @@ bool Controller::LogicsController::HandleLMButtonClick(float x, float y)
 	bool bStatus = false;
 
 	int elID = IsElementClicked(x, y);
-	if(PairSelected(elID))
+
+	/* PairSelected should not be called if elID is negative */
+	if(elID < 0)
+		return bStatus;
+	else
 	{
-		bStatus = true;
-		CheckMoveValidity();
+		if(PairSelected(elID))
+		{
+			bStatus = true;
+			CheckMoveValidity();
+		}
 	}
 
 	return bStatus;
@@ -545,9 +554,14 @@ int Controller::LogicsController::IsElementClicked(float x, float y)
 	return elID;
 }
 
+bool Controller::LogicsController::PairValid(void)
+{
+	return validPairSelected;
+}
+
 bool Controller::LogicsController::PairSelected(int id)
 {
-	if(id < 0)
+	/*if(id < 0)
 	{
 		if(swapPair.empty())
 			return false;
@@ -556,8 +570,9 @@ bool Controller::LogicsController::PairSelected(int id)
 			swapPair.clear();
 			return false;
 		}
-	}
-	else if(id >= 0)
+	} else if */
+
+	if(id >= 0)
 	{
 		if(swapPair.empty())
 		{
@@ -579,16 +594,19 @@ bool Controller::LogicsController::PairSelected(int id)
 				// check if elements are on the same row and whether last element is to the left or to the right of previously selected element
 				if( (element2Row == element1Row) && (element2Col == (element1Col - 1) || element2Col == (element1Col + 1)))
 				{
+					validPairSelected = true;
 					swapPair.push_back(gameBoardModel->GetBoardElementByID(id));
 					return true;
 				}
 				else if((id == (swapPair[0].id + gameBoardModel->GetBoardWidth())) || (id == (swapPair[0].id - gameBoardModel->GetBoardWidth())))
 				{
+					validPairSelected = true;
 					swapPair.push_back(gameBoardModel->GetBoardElementByID(id));
 					return true;
 				}
 				else
 				{
+					validPairSelected = false;
 					swapPair.clear();
 					swapPair.push_back(gameBoardModel->GetBoardElementByID(id));
 					return false;
@@ -599,6 +617,7 @@ bool Controller::LogicsController::PairSelected(int id)
 		}
 	}
 
+	return true;
 }
 
 void Controller::LogicsController::CheckMoveValidity()
