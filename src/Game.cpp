@@ -117,9 +117,6 @@ void Game::MainGameLoop()
 				move = logicsController->CalculateMovePoints(oldTime, currentTime);
 				this->ProcessGameLogics(window, move);
 			}
-
-			//move = logicsController->CalculateMovePoints(oldTime, currentTime);
-			//this->ProcessGameLogics(window, move);
 		}
 
 		gameWindowController->DispatchUpdateWindow();
@@ -296,6 +293,7 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 			 logicsController->SetSwapBackAllowed(false);
 			 gameWindowController->SetUserInteractionStatus(true);
 			 logicsController->ClearSwapPair();
+			 logicsController->SetValidPairSelected(false);
 		 }
 
 		 logicsController->DispatchDrawElements(window);
@@ -327,6 +325,8 @@ void Game::ProcessGameLogics(SDL_Surface*& window, float move)
 				 gameWindowController->SetUserInteractionStatus(true);
 				 if(!logicsController->CheckForMoves())
 					 noMoreMoves = true;
+
+				 logicsController->SetValidPairSelected(false);
 			 }
 		 }
 

@@ -58,6 +58,7 @@ namespace Controller
 		void SetScore(int newScore);
 		int GetScore();
 		bool PairValid(void);
+		void SetValidPairSelected(bool bStatus);
 
 	private:
 		int IsElementClicked(float x, float y);

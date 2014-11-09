@@ -524,7 +524,10 @@ bool Controller::LogicsController::HandleLMButtonClick(float x, float y)
 
 	/* PairSelected should not be called if elID is negative */
 	if(elID < 0)
+	{
+		swapPair.clear();
 		return bStatus;
+	}
 	else
 	{
 		if(PairSelected(elID))
@@ -559,19 +562,13 @@ bool Controller::LogicsController::PairValid(void)
 	return validPairSelected;
 }
 
+void Controller::LogicsController::SetValidPairSelected(bool bStatus)
+{
+	validPairSelected = bStatus;
+}
+
 bool Controller::LogicsController::PairSelected(int id)
 {
-	/*if(id < 0)
-	{
-		if(swapPair.empty())
-			return false;
-		else if(swapPair.size() == 1)
-		{
-			swapPair.clear();
-			return false;
-		}
-	} else if */
-
 	if(id >= 0)
 	{
 		if(swapPair.empty())
