@@ -543,11 +543,13 @@ bool Controller::LogicsController::HandleLMButtonClick(float x, float y)
 int Controller::LogicsController::IsElementClicked(float x, float y)
 {
 	int elID = -1;
-	vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+	static vector<Model::BoardElement> diamonds = gameBoardModel->GetBoardElements();
+    int elWidth = gameBoardModel->GetElementWidth();
+    int elHeight = gameBoardModel->GetElementHeight();
 
 	for(unsigned int i = 0; i < diamonds.size(); i++)
 	{
-		if((x > diamonds.at(i).pos.x) && (x < diamonds.at(i).pos.x + gameBoardModel->GetElementWidth()) && (y > diamonds.at(i).pos.y) && (y < diamonds.at(i).pos.y + gameBoardModel->GetElementHeight()))
+		if((x > diamonds.at(i).pos.x) && (x < diamonds.at(i).pos.x + elWidth) && (y > diamonds.at(i).pos.y) && (y < diamonds.at(i).pos.y + elHeight))
 		{
 			elID = diamonds.at(i).id;
 			break;
