@@ -549,10 +549,14 @@ int Controller::LogicsController::IsElementClicked(float x, float y)
 
 	for(unsigned int i = 0; i < diamonds.size(); i++)
 	{
-		if((x > diamonds.at(i).pos.x) && (x < diamonds.at(i).pos.x + elWidth) && (y > diamonds.at(i).pos.y) && (y < diamonds.at(i).pos.y + elHeight))
+		//if((x > diamonds.at(i).pos.x) && (x < diamonds.at(i).pos.x + elWidth) && (y > diamonds.at(i).pos.y) && (y < diamonds.at(i).pos.y + elHeight))
+		if((x > diamonds.at(i).pos.x) && (x < diamonds.at(i).pos.x + elWidth))// && (y > diamonds.at(i).pos.y) && (y < diamonds.at(i).pos.y + elHeight))
 		{
-			elID = diamonds.at(i).id;
-			break;
+            if((y > diamonds.at(i).pos.y) && (y < diamonds.at(i).pos.y + elHeight))
+            {       
+			    elID = diamonds.at(i).id;
+			    break;
+            }
 		}
 	}
 
